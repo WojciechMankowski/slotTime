@@ -2,8 +2,11 @@ import axios from 'axios'
 import { getLang, t } from '../Helper/i18n'
 import { toastBus } from '../Helper/toastBus'
 
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+const BASE_URL = isLocal ? 'http://localhost:8000' : 'https://slot-time-api.vercel.app'
+
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? '',
+  baseURL: BASE_URL,
 })
 
 api.interceptors.request.use((config) => {
@@ -63,8 +66,7 @@ api.interceptors.response.use(
       _isRefreshing = true
 
       try {
-        const refreshBase = import.meta.env.VITE_API_URL ?? ''
-        const res = await axios.post(`${refreshBase}/api/refresh`, { refresh_token: refreshToken })
+        const res = await axios.post(`${BASE_URL}/api/refresh`, { refresh_token: refreshToken })
         const newToken: string = res.data.access_token
         localStorage.setItem('token', newToken)
         api.defaults.headers.common.Authorization = `Bearer ${newToken}`
