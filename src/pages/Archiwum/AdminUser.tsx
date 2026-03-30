@@ -30,9 +30,11 @@ const AdminUser = () => {
 
       </div>
       <div className="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
-       <AdminUsersTable 
-       columns={['Nazwa użytkownika', 'Alias', "Rola", "Firma", "Magazyn"]}
-       rows={users}
+       <AdminUsersTable
+         rows={users}
+         lang={'pl'}
+         setIsEdit={() => {}}
+         setUser={() => {}}
        />
       </div>
     </>
