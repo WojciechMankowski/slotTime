@@ -23,7 +23,7 @@ function Header({
                 <div className="flex items-center gap-1">
                     {me.role !== 'client' && <Menu lang={lang} me={me} />}
                     <img
-                        src={me.warehouse.logo_path || '/static/app_logo.png'}
+                        src={me.warehouse?.logo_path || '/static/app_logo.png'}
                         alt="logo"
                         className="h-8"
                     />

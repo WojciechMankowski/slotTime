@@ -33,9 +33,11 @@ export default function AdminDock({ lang, }: { lang: Lang}) {
 
       </div>
       <div className="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
-      <AdminDocksTable  
-      columns={['Nazwa', 'Alias', 'Aktywne']}
-      rows={doks}
+      <AdminDocksTable
+        rows={doks}
+        lang={lang}
+        setIsEdit={() => {}}
+        setDock={() => {}}
       />
       
       </div>

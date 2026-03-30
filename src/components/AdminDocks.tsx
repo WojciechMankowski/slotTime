@@ -37,7 +37,7 @@ export default function AdminDocks({ lang }: { lang: Lang }) {
 
           {isEdit && (
             <div className="w-96 bg-white rounded-2xl shadow-sm border border-gray-200 p-5 self-start">
-              <UpdateFormDock setIsEdit={setIsEdit} dock={dok} onSuccess={reload} />
+              <UpdateFormDock dock={dok!} lang={lang} onClose={() => setIsEdit(false)} onSuccess={reload} />
             </div>
           )}
         </div>
