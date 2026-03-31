@@ -29,6 +29,7 @@ export default function App() {
   const nav = useNavigate()
 
   const loadMe = async () => {
+    if (!localStorage.getItem('token')) return
     try {
       const res = await api.get('/api/me')
       setMe(res.data)
