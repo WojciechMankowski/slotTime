@@ -67,6 +67,10 @@ export default function Table({
                     <option value="RESERVED_CONFIRMED">{t("reserved_confirmed", getLang())}</option>
                     <option value="COMPLETED">{t("completed", getLang())}</option>
                     <option value="CANCELLED">{t("cancelled", getLang())}</option>
+                    <option value="REJECTED">{t("rejected", getLang())}</option>
+                    <option value="EXPIRED">{t("expired", getLang())}</option>
+                    <option value="NO_SHOW">{t("no_show", getLang())}</option>
+                    <option value="CANCEL_REJECTED">{t("cancel_rejected", getLang())}</option>
                   </select>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">

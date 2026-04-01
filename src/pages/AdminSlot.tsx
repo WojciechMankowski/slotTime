@@ -170,6 +170,10 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
                 <option value="CANCEL_PENDING">{t("cancel_pending", lang)}</option>
                 <option value="COMPLETED">{t("completed", lang)}</option>
                 <option value="CANCELLED">{t("cancelled", lang)}</option>
+                <option value="REJECTED">{t("rejected", lang)}</option>
+                <option value="EXPIRED">{t("expired", lang)}</option>
+                <option value="NO_SHOW">{t("no_show", lang)}</option>
+                <option value="CANCEL_REJECTED">{t("cancel_rejected", lang)}</option>
               </select>
             </div>
             <div className="flex flex-col gap-1">
@@ -221,6 +225,10 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
           COMPLETED:                "bg-gray-100 text-gray-600",
           CANCELLED:                "bg-red-100 text-red-700",
           CANCEL_PENDING:           "bg-orange-100 text-orange-700",
+          REJECTED:                 "bg-red-100 text-red-800",
+          EXPIRED:                  "bg-gray-100 text-gray-500",
+          NO_SHOW:                  "bg-yellow-100 text-yellow-800",
+          CANCEL_REJECTED:          "bg-rose-100 text-rose-700",
         };
         const STATUS_LABEL: Record<string, keyof typeof import("../Helper/i18n").dict> = {
           AVAILABLE:                "available",
@@ -230,6 +238,10 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
           COMPLETED:                "completed",
           CANCELLED:                "cancelled",
           CANCEL_PENDING:           "cancel_pending",
+          REJECTED:                 "rejected",
+          EXPIRED:                  "expired",
+          NO_SHOW:                  "no_show",
+          CANCEL_REJECTED:          "cancel_rejected",
         };
 
         return (

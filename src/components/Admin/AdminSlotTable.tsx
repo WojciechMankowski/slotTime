@@ -11,6 +11,10 @@ const STATUS_STYLE: Record<string, { bg: string; text: string }> = {
   COMPLETED:                { bg: "bg-gray-100",    text: "text-gray-600"    },
   CANCELLED:                { bg: "bg-red-100",     text: "text-red-700"     },
   CANCEL_PENDING:           { bg: "bg-orange-100",  text: "text-orange-700"  },
+  REJECTED:                 { bg: "bg-red-100",     text: "text-red-800"     },
+  EXPIRED:                  { bg: "bg-gray-100",    text: "text-gray-500"    },
+  NO_SHOW:                  { bg: "bg-yellow-100",  text: "text-yellow-800"  },
+  CANCEL_REJECTED:          { bg: "bg-rose-100",    text: "text-rose-700"    },
 };
 
 interface TableAdminSlotProps {
@@ -66,6 +70,10 @@ export default function TableAdminSlot({
     "AVAILABLE",
     "COMPLETED",
     "CANCELLED",
+    "REJECTED",
+    "EXPIRED",
+    "NO_SHOW",
+    "CANCEL_REJECTED",
   ];
 
   const GROUP_STYLE: Record<string, { bar: string; label: string }> = {
@@ -76,6 +84,10 @@ export default function TableAdminSlot({
     AVAILABLE:                { bar: "bg-emerald-100 border-emerald-300", label: "text-emerald-800" },
     COMPLETED:                { bar: "bg-gray-100 border-gray-300",     label: "text-gray-600"   },
     CANCELLED:                { bar: "bg-red-100 border-red-300",       label: "text-red-700"    },
+    REJECTED:                 { bar: "bg-red-100 border-red-300",       label: "text-red-800"    },
+    EXPIRED:                  { bar: "bg-gray-100 border-gray-300",     label: "text-gray-500"   },
+    NO_SHOW:                  { bar: "bg-yellow-100 border-yellow-300", label: "text-yellow-800" },
+    CANCEL_REJECTED:          { bar: "bg-rose-100 border-rose-300",     label: "text-rose-700"   },
   };
 
   const STATUS_LABEL: Record<string, any> = {
@@ -86,6 +98,10 @@ export default function TableAdminSlot({
     AVAILABLE:                "available",
     COMPLETED:                "completed",
     CANCELLED:                "cancelled",
+    REJECTED:                 "rejected",
+    EXPIRED:                  "expired",
+    NO_SHOW:                  "no_show",
+    CANCEL_REJECTED:          "cancel_rejected",
   };
 
   const grouped = STATUS_ORDER.reduce<Record<string, Slot[]>>((acc, status) => {
@@ -171,6 +187,10 @@ export default function TableAdminSlot({
                     <option value="COMPLETED">{t("completed", lang)}</option>
                     <option value="CANCELLED">{t("cancelled", lang)}</option>
                     <option value="CANCEL_PENDING">{t("cancel_pending", lang)}</option>
+                    <option value="REJECTED">{t("rejected", lang)}</option>
+                    <option value="EXPIRED">{t("expired", lang)}</option>
+                    <option value="NO_SHOW">{t("no_show", lang)}</option>
+                    <option value="CANCEL_REJECTED">{t("cancel_rejected", lang)}</option>
                   </select>
                 </td>
 

@@ -74,6 +74,10 @@ function FilterSlotAdmin({
           <option value="CANCEL_PENDING">{t('cancel_pending', lang)}</option>
           <option value="COMPLETED">{t('completed', lang)}</option>
           <option value="CANCELLED">{t('cancelled', lang)}</option>
+          <option value="REJECTED">{t('rejected', lang)}</option>
+          <option value="EXPIRED">{t('expired', lang)}</option>
+          <option value="NO_SHOW">{t('no_show', lang)}</option>
+          <option value="CANCEL_REJECTED">{t('cancel_rejected', lang)}</option>
         </select>
       </div>
 
