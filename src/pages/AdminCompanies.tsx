@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { t, Lang, errorText } from "../Helper/i18n";
 import { Me } from "../Types/types";
 import useAdminCompanies from "../hooks/useAdminCompanies";
-import { deleteCompany } from "../API/serviceCopany";
+import { deleteCompany } from "../API/serviceCompany";
 import { getApiError } from "../Helper/helper";
 import ErrorBanner from "../components/UI/ErrorBanner";
 import Spinner from "../components/UI/Spinner";

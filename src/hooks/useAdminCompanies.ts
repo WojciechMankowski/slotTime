@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getCompanies } from "../API/serviceCopany";
+import { getCompanies } from "../API/serviceCompany";
 import { getApiError } from "../Helper/helper";
 import type { Company } from "../Types/types";
 

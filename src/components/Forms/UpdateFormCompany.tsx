@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { t, errorText } from "../../Helper/i18n";
-import { patchCompany } from "../../API/serviceCopany";
+import { patchCompany } from "../../API/serviceCompany";
 import { getApiError } from "../../Helper/helper";
 import Overlay from "../UI/Overlay";
 import Spinner from "../UI/Spinner";

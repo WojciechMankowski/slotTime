@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
 import Label from "../UI/Label";
-import { createCompany } from "../../API/serviceCopany";
+import { createCompany } from "../../API/serviceCompany";
 import { t, getLang } from "../../Helper/i18n";
 import { getApiError } from "../../Helper/helper";
 

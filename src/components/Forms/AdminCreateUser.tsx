@@ -4,7 +4,7 @@ import Button from "../UI/Button";
 import Label from "../UI/Label";
 import Select from "../UI/Select";
 import { createUser } from "../../API/serviceUser";
-import { getCompanies } from "../../API/serviceCopany";
+import { getCompanies } from "../../API/serviceCompany";
 import { getWarehouses } from "../../API/serviceWarehouse";
 import { CompanyResponse } from "../../Types/apiType";
 import { Warehouse } from "../../Types/types";

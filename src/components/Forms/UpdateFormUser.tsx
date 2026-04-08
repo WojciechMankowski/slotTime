@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { patchUser } from "../../API/serviceUser";
-import { getCompanies } from "../../API/serviceCopany";
+import { getCompanies } from "../../API/serviceCompany";
 import { getWarehouses } from "../../API/serviceWarehouse";
 import { CompanyResponse } from "../../Types/apiType";
 import { UserOut, Warehouse } from "../../Types/types";
