@@ -29,11 +29,11 @@ function Header({
                     />
                 </div>
 
-                <div className="flex-1">
+                <div className="hidden sm:block flex-1">
                     <div className="text-[1.4rem] font-bold">Slot Booking</div>
                 </div>
 
-                <div className="relative inline-block mr-2">
+                <div className="relative inline-block mr-2 ml-auto sm:ml-0">
                     <button
                         className="flex items-center gap-2 bg-white border border-(--border) px-3 py-1.5 rounded-lg cursor-pointer font-medium text-(--text-main) transition-colors duration-200 shadow-sm hover:border-blue-600"
                         onClick={() => setIsLangOpen(!isLangOpen)}
@@ -79,11 +79,11 @@ function Header({
                     )}
                 </div>
 
-                <button 
-                  className="flex items-center gap-2 bg-white border border-(--border) rounded-full px-4 py-2 text-sm cursor-pointer transition-all duration-200 hover:-translate-y-px hover:border-gray-500 active:translate-y-0" 
+                <button
+                  className="flex items-center gap-2 bg-white border border-(--border) rounded-full px-4 py-2 text-sm cursor-pointer transition-all duration-200 hover:-translate-y-px hover:border-gray-500 active:translate-y-0"
                   onClick={onLogout}
                 >
-                    {t('logout', lang)}
+                    <span className="hidden sm:inline">{t('logout', lang)}</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                         <polyline points="16 17 21 12 16 7"></polyline>
