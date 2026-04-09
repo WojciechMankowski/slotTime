@@ -8,31 +8,21 @@ export const getSlotsAdmin = async (
   dateFrom: string,
   dateTo: string,
 ): Promise<Slot[]> => {
-  try {
-    const res = await api.get<Slot[]>("/api/slots", {
-      params: { date_from: dateFrom, date_to: dateTo },
-    });
-    return res.data;
-  } catch (error) {
-    console.error("Błąd pobierania slotów:", error);
-    throw error;
-  }
+  const res = await api.get<Slot[]>("/api/slots", {
+    params: { date_from: dateFrom, date_to: dateTo },
+  });
+  return res.data;
 };
 
 export const assignDock = async (
   slotId: number,
   dockId: number,
 ): Promise<AssignDockResponse> => {
-  try {
-    const res = await api.post<AssignDockResponse>(
-      `/api/slots/${slotId}/assign-dock`,
-      { dock_id: dockId },
-    );
-    return res.data;
-  } catch (error) {
-    console.error(`Błąd przypisania doku ${dockId} do slotu ${slotId}:`, error);
-    throw error;
-  }
+  const res = await api.post<AssignDockResponse>(
+    `/api/slots/${slotId}/assign-dock`,
+    { dock_id: dockId },
+  );
+  return res.data;
 };
 
 export const createSlot = async (
@@ -45,26 +35,20 @@ export const createSlot = async (
 ): Promise<SlotGenerateResponse> => {
   const dateTo = calculateEndDate(dateFrom, timeFrom, timeTo);
 
-  try {
-    const res = await api.post<SlotGenerateResponse>("/api/slots/generate", {
-      date_from: dateFrom,
-      date_to: dateTo,
-      start_time: timeFrom,
-      end_time: timeTo,
-      interval_minutes: intervalMinutes,
-      slot_type: slotType,
-      parallel_slots: parallelSlots,
-      template_id: null,
-    });
-    return res.data;
-  } catch (error) {
-    console.error("Błąd generowania slotów:", error);
-    throw error;
-  }
+  const res = await api.post<SlotGenerateResponse>("/api/slots/generate", {
+    date_from: dateFrom,
+    date_to: dateTo,
+    start_time: timeFrom,
+    end_time: timeTo,
+    interval_minutes: intervalMinutes,
+    slot_type: slotType,
+    parallel_slots: parallelSlots,
+    template_id: null,
+  });
+  return res.data;
 };
 
 export const patchSlot = async (slotId: number, payload: Slot): Promise<Slot> => {
-  console.log(`Wywołanie api dla id: ${slotId}`)
   const res = await api.patch<Slot>(`/api/slots/${slotId}`, payload)
   return res.data
 }

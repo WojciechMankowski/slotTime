@@ -3,13 +3,8 @@ import { DokTyp } from "../Types/DokType";
 import { Me } from "../Types/types";
 
 export const getDokAdmin = async (): Promise<DokTyp[]> => {
-  try {
-    const res = await api.get<DokTyp[]>("/api/docks");
-    return res.data;
-  } catch (error) {
-    console.error("Błąd podczas pobierania dokumentów admina:", error);
-    throw error;
-  }
+  const res = await api.get<DokTyp[]>("/api/docks");
+  return res.data;
 };
 
 export const createDock = async (payload: {

@@ -268,7 +268,6 @@ export default function FormTemplate() {
     // Symulacja wysyłki - zastąp własną logiką (fetch, axios, itp.)
     await new Promise((resolve) => setTimeout(resolve, 1200));
 
-    console.log("Dane formularza:", values);
     setIsLoading(false);
     setSubmitted(true);
   };

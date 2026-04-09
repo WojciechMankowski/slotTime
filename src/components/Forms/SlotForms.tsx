@@ -64,7 +64,6 @@ const SlotForm: React.FC<FormProps> = ({
       setErrors(newErrors);
       return;
     }
-    console.log(newErrors)
     setErrors({});
     createSlot(dataForm.date, dataForm.startTime, dataForm.endTime, dataForm.slotType, dataForm.interval, dataForm.quantity)
   };
