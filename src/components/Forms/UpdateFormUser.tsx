@@ -68,6 +68,7 @@ export default function UpdateFormUser({
         role: role as any,
         company_id: role === "client" ? companyId : null,
         warehouse_id: role === "admin" ? warehouseId : null,
+        ...(password ? { password } : {}),
       });
       if (onSuccess) onSuccess();
       onClose();

@@ -18,7 +18,7 @@ export const createUser = async (payload: {
   const res = await api.post<UserOut>("/api/users", payload);
   return res.data;
 };
-export const patchUser = async (userId: number, payload: UserOut): Promise<UserOut> => {
+export const patchUser = async (userId: number, payload: UserOut & { password?: string }): Promise<UserOut> => {
   const res = await api.patch<UserOut>(`/api/users/${userId}`, payload)
   return res.data
 }
