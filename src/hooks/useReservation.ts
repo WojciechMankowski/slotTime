@@ -3,7 +3,7 @@ import { reserveSlot } from "../API/serviceSlot";
 import { getApiError } from "../Helper/helper";
 import type { Slot } from "../Types/SlotType";
 
-export default function useReservation(onSuccess: () => void) {
+export default function useReservation(onSuccess: (slot: Slot) => void) {
   const [confirmSlot, setConfirmSlot] = useState<Slot | null>(null);
   const [requestedType, setRequestedType] = useState<"INBOUND" | "OUTBOUND">("INBOUND");
   const [reserving, setReserving] = useState(false);
@@ -24,9 +24,9 @@ export default function useReservation(onSuccess: () => void) {
     try {
       const payload =
         confirmSlot.slot_type === "ANY" ? { requested_type: requestedType } : {};
-      await reserveSlot(confirmSlot.id, payload as any);
+      const reserved = await reserveSlot(confirmSlot.id, payload as any);
       setConfirmSlot(null);
-      onSuccess();
+      onSuccess(reserved);
     } catch (err) {
       setReserveErr(getApiError(err));
     } finally {

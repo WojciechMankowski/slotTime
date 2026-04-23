@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { t, Lang } from "../Helper/i18n";
 import type { Me, Dock } from "../Types/types";
-import type { Tab } from "../Types/SlotType";
+import type { Slot, Tab } from "../Types/SlotType";
 import { api } from "../API/api";
 import { toastBus } from "../Helper/toastBus";
 import { getApiError } from "../Helper/helper";
@@ -34,18 +34,19 @@ export default function ClientBooking({ lang, me }: { lang: Lang; me: Me }) {
   const available = useAvailableSlots();
   const my = useMySlots(me);
 
-  const reservation = useReservation(() => {
+  const notice = useNotice(lang, () => {
+    flash(t("notice_success", lang));
+    my.reload();
+  });
+
+  const reservation = useReservation((reservedSlot: Slot) => {
     flash(t("reserve_success", lang));
     available.reload();
+    notice.open(reservedSlot);
   });
 
   const cancel = useCancelSlot(() => {
     flash(t("cancel_success", lang));
-    my.reload();
-  });
-
-  const notice = useNotice(lang, () => {
-    flash(t("notice_success", lang));
     my.reload();
   });
 

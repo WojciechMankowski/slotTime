@@ -39,9 +39,9 @@ export function getApiError(error: unknown): string {
 }
 
 export const STATUS_STYLE: Record<string, { bg: string; text: string; label_pl: string; label_en: string }> = {
-  BOOKED:                   { bg: "bg-amber-100",   text: "text-amber-800",   label_pl: "Zarezerwowany",           label_en: "Booked" },
+  BOOKED:                   { bg: "bg-amber-100",   text: "text-amber-800",   label_pl: "Oczekuje na potwierdzenie", label_en: "Awaiting confirmation" },
   APPROVED_WAITING_DETAILS: { bg: "bg-blue-100",    text: "text-blue-800",    label_pl: "Oczekuje na szczegóły",   label_en: "Awaiting details" },
-  RESERVED_CONFIRMED:       { bg: "bg-emerald-100", text: "text-emerald-800", label_pl: "Potwierdzone",            label_en: "Confirmed" },
+  RESERVED_CONFIRMED:       { bg: "bg-emerald-100", text: "text-emerald-800", label_pl: "Potwierdzony",            label_en: "Confirmed" },
   COMPLETED:                { bg: "bg-gray-100",    text: "text-gray-600",    label_pl: "Zakończony",              label_en: "Completed" },
   CANCELLED:                { bg: "bg-red-100",     text: "text-red-700",     label_pl: "Anulowany",              label_en: "Cancelled" },
   CANCEL_PENDING:           { bg: "bg-orange-100",  text: "text-orange-700",  label_pl: "Oczekuje na anulowanie",   label_en: "Cancel pending" },

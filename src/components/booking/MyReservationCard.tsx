@@ -24,7 +24,7 @@ export default function MyReservationCard({
   };
   const canRequestCancel = ["BOOKED", "APPROVED_WAITING_DETAILS", "RESERVED_CONFIRMED"].includes(slot.status);
   const isCancelPending = slot.status === "CANCEL_PENDING";
-  const canNotice = slot.status === "APPROVED_WAITING_DETAILS";
+  const canNotice = slot.status === "APPROVED_WAITING_DETAILS" || slot.status === "BOOKED";
 
   return (
     <div className="bg-white border border-gray-200 rounded-2xl px-5 py-4 shadow-sm flex items-center gap-4 flex-wrap">
