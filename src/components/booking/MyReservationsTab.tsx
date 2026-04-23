@@ -87,13 +87,8 @@ export default function MyReservationsTab({
               <option value="ALL">
                 {t("all_statuses", lang)}
               </option>
-              <option value="BOOKED">{t("booked", lang)}</option>
-              <option value="APPROVED_WAITING_DETAILS">
-                {t("approved_waiting_details", lang)}
-              </option>
-              <option value="RESERVED_CONFIRMED">
-                {t("reserved_confirmed", lang)}
-              </option>
+              <option value="PENDING_CONFIRMATION">{t("pending_confirmation", lang)}</option>
+              <option value="CONFIRMED">{t("confirmed", lang)}</option>
               <option value="CANCEL_PENDING">{t("cancel_pending", lang)}</option>
               <option value="COMPLETED">{t("completed", lang)}</option>
               <option value="CANCELLED">{t("cancelled", lang)}</option>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getSlotsAdmin, assignDock, createSlot, patchSlot, approveSlot, patchSlotStatus, cancelSlot, rejectCancelSlot, deleteSlot } from "../API/serviceSlot";
+import { getSlotsAdmin, assignDock, createSlot, patchSlot, confirmSlot, patchSlotStatus, cancelSlot, rejectCancelSlot, deleteSlot } from "../API/serviceSlot";
 import { getDokAdmin } from "../API/serviceDok";
 import { errorText, Lang } from "../Helper/i18n";
 import type { Slot } from "../Types/SlotType";
@@ -102,7 +102,7 @@ export default function useAdminSlots(lang: Lang, initialDate?: string) {
   const onApprove = async (slotId: number) => {
     setErrorApprove(null);
     try {
-      await approveSlot(slotId);
+      await confirmSlot(slotId);
       await loadDataSlot(startOd, endDo);
     } catch (error) {
       setErrorApprove(getApiErrorMessage(error, lang));

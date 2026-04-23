@@ -22,9 +22,9 @@ export default function MyReservationCard({
     label_pl: slot.status,
     label_en: slot.status,
   };
-  const canRequestCancel = ["BOOKED", "APPROVED_WAITING_DETAILS", "RESERVED_CONFIRMED"].includes(slot.status);
+  const canRequestCancel = ["PENDING_CONFIRMATION", "CONFIRMED"].includes(slot.status);
   const isCancelPending = slot.status === "CANCEL_PENDING";
-  const canNotice = slot.status === "APPROVED_WAITING_DETAILS" || slot.status === "BOOKED";
+  const canNotice = slot.status === "PENDING_CONFIRMATION";
 
   return (
     <div className="bg-white border border-gray-200 rounded-2xl px-5 py-4 shadow-sm flex items-center gap-4 flex-wrap">

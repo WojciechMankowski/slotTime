@@ -23,6 +23,8 @@ function formatDt(dt: string): string {
 // Mapowanie enum -> klucz i18n
 const STATUS_I18N: Record<string, string> = {
   AVAILABLE: 'available',
+  PENDING_CONFIRMATION: 'pending_confirmation',
+  CONFIRMED: 'confirmed',
   BOOKED: 'booked',
   APPROVED_WAITING_DETAILS: 'approved_waiting_details',
   RESERVED_CONFIRMED: 'reserved_confirmed',
@@ -37,6 +39,8 @@ const TYPE_I18N: Record<string, string> = {
 }
 
 const STATUS_COLORS: Record<string, string> = {
+  PENDING_CONFIRMATION: 'bg-amber-50 text-amber-800 border-amber-200',
+  CONFIRMED: 'bg-green-50 text-green-800 border-green-200',
   RESERVED_CONFIRMED: 'bg-green-50 text-green-800 border-green-200',
   APPROVED_WAITING_DETAILS: 'bg-yellow-50 text-yellow-800 border-yellow-200',
   BOOKED: 'bg-blue-50 text-blue-800 border-blue-200',

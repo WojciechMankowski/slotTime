@@ -5,6 +5,8 @@ import { t, Lang } from "../../Helper/i18n";
 
 const STATUS_STYLE: Record<string, { bg: string; text: string }> = {
   AVAILABLE:                { bg: "bg-emerald-100", text: "text-emerald-800" },
+  PENDING_CONFIRMATION:     { bg: "bg-amber-100",   text: "text-amber-800"   },
+  CONFIRMED:                { bg: "bg-indigo-100",  text: "text-indigo-800"  },
   BOOKED:                   { bg: "bg-amber-100",   text: "text-amber-800"   },
   APPROVED_WAITING_DETAILS: { bg: "bg-blue-100",    text: "text-blue-800"    },
   RESERVED_CONFIRMED:       { bg: "bg-indigo-100",  text: "text-indigo-800"  },
@@ -64,6 +66,8 @@ export default function TableAdminSlot({
 
   const STATUS_ORDER = [
     "CANCEL_PENDING",
+    "PENDING_CONFIRMATION",
+    "CONFIRMED",
     "BOOKED",
     "RESERVED_CONFIRMED",
     "APPROVED_WAITING_DETAILS",
@@ -78,6 +82,8 @@ export default function TableAdminSlot({
 
   const GROUP_STYLE: Record<string, { bar: string; label: string }> = {
     CANCEL_PENDING:           { bar: "bg-orange-100 border-orange-300", label: "text-orange-800" },
+    PENDING_CONFIRMATION:     { bar: "bg-amber-100 border-amber-300",   label: "text-amber-800"  },
+    CONFIRMED:                { bar: "bg-indigo-100 border-indigo-300", label: "text-indigo-800" },
     BOOKED:                   { bar: "bg-amber-100 border-amber-300",   label: "text-amber-800"  },
     RESERVED_CONFIRMED:       { bar: "bg-indigo-100 border-indigo-300", label: "text-indigo-800" },
     APPROVED_WAITING_DETAILS: { bar: "bg-blue-100 border-blue-300",     label: "text-blue-800"   },
@@ -92,6 +98,8 @@ export default function TableAdminSlot({
 
   const STATUS_LABEL: Record<string, any> = {
     CANCEL_PENDING:           "cancel_pending",
+    PENDING_CONFIRMATION:     "pending_confirmation",
+    CONFIRMED:                "confirmed",
     BOOKED:                   "booked",
     RESERVED_CONFIRMED:       "reserved_confirmed",
     APPROVED_WAITING_DETAILS: "approved_waiting_details",
@@ -181,6 +189,8 @@ export default function TableAdminSlot({
                     className={`block w-fit min-w-[160px] rounded-xl border-none shadow-sm text-xs font-bold py-1.5 px-3 focus:ring-2 focus:ring-blue-500 cursor-pointer transition-all ${statusStyle.bg} ${statusStyle.text}`}
                   >
                     <option value="AVAILABLE">{t("available", lang)}</option>
+                    <option value="PENDING_CONFIRMATION">{t("pending_confirmation", lang)}</option>
+                    <option value="CONFIRMED">{t("confirmed", lang)}</option>
                     <option value="BOOKED">{t("booked", lang)}</option>
                     <option value="APPROVED_WAITING_DETAILS">{t("approved_waiting_details", lang)}</option>
                     <option value="RESERVED_CONFIRMED">{t("reserved_confirmed", lang)}</option>
@@ -227,7 +237,7 @@ export default function TableAdminSlot({
                 {/* Actions */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-2">
-                    {row.status === "BOOKED" && (
+                    {row.status === "PENDING_CONFIRMATION" && (
                       <button
                         onClick={() => onApprove(slotId)}
                         className="flex items-center gap-1.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 px-3 py-1.5 rounded-xl transition-all shadow-md hover:shadow-lg whitespace-nowrap"
@@ -235,7 +245,7 @@ export default function TableAdminSlot({
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
-                        {t("approve", lang)}
+                        {t("confirm", lang)}
                       </button>
                     )}
 
@@ -288,7 +298,7 @@ export default function TableAdminSlot({
                           </button>
                         )}
                       </div>
-                    ) : row.status === "BOOKED" || row.status === "APPROVED_WAITING_DETAILS" ? (
+                    ) : row.status === "PENDING_CONFIRMATION" || row.status === "BOOKED" || row.status === "APPROVED_WAITING_DETAILS" ? (
                       <button
                         onClick={() => onStatusChange(slotId, "AVAILABLE")}
                         className="p-2 rounded-xl text-gray-400 hover:text-orange-600 hover:bg-orange-50 transition-all group-hover:bg-gray-50"

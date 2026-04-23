@@ -62,9 +62,8 @@ export default function Table({
                     className="block w-full min-w-[120px] rounded-md border border-gray-300 shadow-sm text-sm py-2 px-3 focus:border-blue-500 focus:ring-blue-500"
                   >
                     <option value="AVAILABLE">{t("available", getLang())}</option>
-                    <option value="BOOKED">{t("booked", getLang())}</option>
-                    <option value="APPROVED_WAITING_DETAILS">{t("approved_waiting_details", getLang())}</option>
-                    <option value="RESERVED_CONFIRMED">{t("reserved_confirmed", getLang())}</option>
+                    <option value="PENDING_CONFIRMATION">{t("pending_confirmation", getLang())}</option>
+                    <option value="CONFIRMED">{t("confirmed", getLang())}</option>
                     <option value="COMPLETED">{t("completed", getLang())}</option>
                     <option value="CANCELLED">{t("cancelled", getLang())}</option>
                     <option value="REJECTED">{t("rejected", getLang())}</option>

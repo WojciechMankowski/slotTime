@@ -13,9 +13,8 @@ interface Props {
 
 const STATUSES = [
   '--',
-  'RESERVED_CONFIRMED',
-  'APPROVED_WAITING_DETAILS',
-  'BOOKED',
+  'PENDING_CONFIRMATION',
+  'CONFIRMED',
   'COMPLETED',
   'CANCELLED',
 ]

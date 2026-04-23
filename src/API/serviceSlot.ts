@@ -53,8 +53,26 @@ export const patchSlot = async (slotId: number, payload: Slot): Promise<Slot> =>
   return res.data
 }
 
-export const reserveSlot = async (slotId: number, payload: Slot): Promise<Slot> => {
+export interface ReserveSlotPayload {
+  requested_type?: "INBOUND" | "OUTBOUND";
+  numer_zlecenia: string;
+  referencja: string;
+  rejestracja_auta: string;
+  rejestracja_naczepy: string;
+  ilosc_palet: number;
+  kierowca_imie_nazwisko?: string;
+  kierowca_tel?: string;
+  uwagi?: string;
+}
+
+export const reserveSlot = async (slotId: number, payload: ReserveSlotPayload): Promise<Slot> => {
   const res = await api.post<Slot>(`/api/slots/${slotId}/reserve`, payload)
+  return res.data
+}
+
+export const confirmSlot = async (slotId: number, dockId?: number): Promise<Slot> => {
+  const payload = dockId != null ? { dock_id: dockId } : {};
+  const res = await api.post<Slot>(`/api/slots/${slotId}/confirm`, payload)
   return res.data
 }
 

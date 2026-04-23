@@ -140,6 +140,8 @@ describe("getApiError", () => {
 describe("STATUS_STYLE", () => {
   it("has entries for all main statuses", () => {
     const expected = [
+      "PENDING_CONFIRMATION",
+      "CONFIRMED",
       "BOOKED",
       "APPROVED_WAITING_DETAILS",
       "RESERVED_CONFIRMED",

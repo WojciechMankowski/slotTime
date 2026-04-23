@@ -164,9 +164,8 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
                 className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-red-400 min-w-[180px]">
                 <option value="">{t("all_statuses_opt", lang)}</option>
                 <option value="AVAILABLE">{t("available", lang)}</option>
-                <option value="BOOKED">{t("booked", lang)}</option>
-                <option value="APPROVED_WAITING_DETAILS">{t("approved_waiting_details", lang)}</option>
-                <option value="RESERVED_CONFIRMED">{t("reserved_confirmed", lang)}</option>
+                <option value="PENDING_CONFIRMATION">{t("pending_confirmation", lang)}</option>
+                <option value="CONFIRMED">{t("confirmed", lang)}</option>
                 <option value="CANCEL_PENDING">{t("cancel_pending", lang)}</option>
                 <option value="COMPLETED">{t("completed", lang)}</option>
                 <option value="CANCELLED">{t("cancelled", lang)}</option>
@@ -219,6 +218,8 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
 
         const STATUS_STYLE: Record<string, string> = {
           AVAILABLE:                "bg-emerald-100 text-emerald-800",
+          PENDING_CONFIRMATION:     "bg-amber-100 text-amber-800",
+          CONFIRMED:                "bg-indigo-100 text-indigo-800",
           BOOKED:                   "bg-amber-100 text-amber-800",
           APPROVED_WAITING_DETAILS: "bg-blue-100 text-blue-800",
           RESERVED_CONFIRMED:       "bg-indigo-100 text-indigo-800",
@@ -232,6 +233,8 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
         };
         const STATUS_LABEL: Record<string, keyof typeof import("../Helper/i18n").dict> = {
           AVAILABLE:                "available",
+          PENDING_CONFIRMATION:     "pending_confirmation",
+          CONFIRMED:                "confirmed",
           BOOKED:                   "booked",
           APPROVED_WAITING_DETAILS: "approved_waiting_details",
           RESERVED_CONFIRMED:       "reserved_confirmed",

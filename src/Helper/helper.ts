@@ -39,6 +39,8 @@ export function getApiError(error: unknown): string {
 }
 
 export const STATUS_STYLE: Record<string, { bg: string; text: string; label_pl: string; label_en: string }> = {
+  PENDING_CONFIRMATION:     { bg: "bg-amber-100",   text: "text-amber-800",   label_pl: "Oczekuje na potwierdzenie", label_en: "Pending confirmation" },
+  CONFIRMED:                { bg: "bg-emerald-100", text: "text-emerald-800", label_pl: "Potwierdzony",            label_en: "Confirmed" },
   BOOKED:                   { bg: "bg-amber-100",   text: "text-amber-800",   label_pl: "Oczekuje na potwierdzenie", label_en: "Awaiting confirmation" },
   APPROVED_WAITING_DETAILS: { bg: "bg-blue-100",    text: "text-blue-800",    label_pl: "Oczekuje na szczegóły",   label_en: "Awaiting details" },
   RESERVED_CONFIRMED:       { bg: "bg-emerald-100", text: "text-emerald-800", label_pl: "Potwierdzony",            label_en: "Confirmed" },

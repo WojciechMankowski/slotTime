@@ -34,15 +34,16 @@ export default function ClientBooking({ lang, me }: { lang: Lang; me: Me }) {
   const available = useAvailableSlots();
   const my = useMySlots(me);
 
+  // useNotice zachowany tylko dla edycji awizacji z "Moje rezerwacje"
   const notice = useNotice(lang, () => {
     flash(t("notice_success", lang));
     my.reload();
   });
 
-  const reservation = useReservation((reservedSlot: Slot) => {
+  const reservation = useReservation(lang, (_reservedSlot: Slot) => {
     flash(t("reserve_success", lang));
     available.reload();
-    notice.open(reservedSlot);
+    my.reload();
   });
 
   const cancel = useCancelSlot(() => {
@@ -164,6 +165,10 @@ export default function ClientBooking({ lang, me }: { lang: Lang; me: Me }) {
           onRequestedTypeChange={reservation.setRequestedType}
           reserving={reservation.reserving}
           reserveErr={reservation.reserveErr}
+          form={reservation.form}
+          errors={reservation.errors}
+          onFormChange={reservation.setForm}
+          onClearError={reservation.clearError}
           onConfirm={reservation.confirm}
           onClose={reservation.close}
         />
@@ -202,6 +207,7 @@ export default function ClientBooking({ lang, me }: { lang: Lang; me: Me }) {
         </div>
       )}
 
+      {/* NoticeModal zachowany dla edycji awizacji z "Moje rezerwacje" */}
       {notice.noticeSlot && (
         <NoticeModal
           slot={notice.noticeSlot}

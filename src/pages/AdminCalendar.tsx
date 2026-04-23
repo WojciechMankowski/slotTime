@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { t, Lang } from "../Helper/i18n";
 import useAdminCalendar, { CalendarMode } from "../hooks/useAdminCalendar";
 import useAdminCalendarWeek from "../hooks/useAdminCalendarWeek";
 import ErrorBanner from "../components/UI/ErrorBanner";
 import Spinner from "../components/UI/Spinner";
+import SlotPreviewModal from "../components/Admin/SlotPreviewModal";
 import { TYPE_STYLE } from "../Helper/helper";
 import type { CalendarDaySummary } from "../API/serviceSlot";
 import type { Slot } from "../Types/SlotType";
@@ -97,11 +98,12 @@ function DayCell({ summary, dateStr, isToday, isOtherMonth, onClick }: {
 }
 
 // ── Week Grid ───────────────────────────────────────────────
-function WeekGrid({ slots, weekRef, lang, onDayClick }: {
+function WeekGrid({ slots, weekRef, lang, onDayClick, onSlotClick }: {
   slots: Slot[];
   weekRef: Date;
   lang: Lang;
   onDayClick: (date: string) => void;
+  onSlotClick: (slot: Slot) => void;
 }) {
   const dayNames = getDayNames(lang);
   const today = new Date().toISOString().slice(0, 10);
@@ -142,7 +144,7 @@ function WeekGrid({ slots, weekRef, lang, onDayClick }: {
             const monthNum = parseInt(date.slice(5, 7), 10);
             const isToday = date === today;
             return (
-              <div key={date} className="flex-1 text-center py-2 border-l border-gray-100 first:border-l-0">
+              <button key={date} onClick={() => onDayClick(date)} className="flex-1 text-center py-2 border-l border-gray-100 first:border-l-0 hover:bg-gray-50 transition-colors cursor-pointer">
                 <div className={`text-[0.7rem] font-bold uppercase tracking-wider ${isToday ? "text-blue-500" : "text-gray-400"}`}>
                   {dayNames[i]}
                 </div>
@@ -150,7 +152,7 @@ function WeekGrid({ slots, weekRef, lang, onDayClick }: {
                   {dayNum}
                   <span className="text-[0.6rem] font-normal text-gray-400 ml-0.5">/{monthNum}</span>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -197,7 +199,7 @@ function WeekGrid({ slots, weekRef, lang, onDayClick }: {
                 return (
                   <button
                     key={slot.id}
-                    onClick={() => onDayClick(date)}
+                    onClick={() => onSlotClick(slot)}
                     className={`absolute inset-x-0.5 rounded-lg px-1.5 py-1 text-left overflow-hidden border border-white/50 shadow-sm hover:shadow-md hover:scale-[1.01] transition-all ${colorClass}`}
                     style={{
                       top: `${topPct * 100}%`,
@@ -227,6 +229,7 @@ export default function AdminCalendar({ lang }: Props) {
   const nav = useNavigate();
   const cal  = useAdminCalendar();
   const week = useAdminCalendarWeek();
+  const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
 
   useEffect(() => {
     cal.load();
@@ -359,9 +362,19 @@ export default function AdminCalendar({ lang }: Props) {
               weekRef={week.weekRef}
               lang={lang}
               onDayClick={handleDayClick}
+              onSlotClick={setSelectedSlot}
             />
           )}
         </div>
+      )}
+
+      {selectedSlot && (
+        <SlotPreviewModal
+          slot={selectedSlot}
+          lang={lang}
+          onClose={() => setSelectedSlot(null)}
+          onGoToDetails={(date) => { setSelectedSlot(null); nav(`/slots?date=${date}`); }}
+        />
       )}
 
       {/* Legend (month only) */}
