@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { t, Lang } from "../Helper/i18n";
 import useAdminCalendar, { CalendarMode } from "../hooks/useAdminCalendar";
 import useAdminCalendarWeek from "../hooks/useAdminCalendarWeek";
+import { useDayDrawer } from "../hooks/useDayDrawer";
 import ErrorBanner from "../components/UI/ErrorBanner";
 import Spinner from "../components/UI/Spinner";
 import SlotPreviewModal from "../components/Admin/SlotPreviewModal";
+import DayDrawer from "../components/Admin/DayDrawer";
 import { TYPE_STYLE } from "../Helper/helper";
 import type { CalendarDaySummary } from "../API/serviceSlot";
 import type { Slot } from "../Types/SlotType";
@@ -25,11 +27,12 @@ function dtToMinutes(dt: string): number {
 }
 
 // ── Month Day Cell ──────────────────────────────────────────
-function DayCell({ summary, dateStr, isToday, isOtherMonth, onClick }: {
+function DayCell({ summary, dateStr, isToday, isOtherMonth, isSelected, onClick }: {
   summary: CalendarDaySummary | undefined;
   dateStr: string;
   isToday: boolean;
   isOtherMonth: boolean;
+  isSelected: boolean;
   onClick: () => void;
 }) {
   const dayNum = parseInt(dateStr.slice(8), 10);
@@ -51,7 +54,7 @@ function DayCell({ summary, dateStr, isToday, isOtherMonth, onClick }: {
     <button
       onClick={onClick}
       className={`min-h-[88px] rounded-xl border p-2 text-left w-full transition-all hover:shadow-md hover:scale-[1.02] active:scale-100
-        ${isToday ? "ring-2 ring-blue-500 bg-blue-50 border-blue-200" : "bg-white border-gray-200 hover:border-blue-300"}`}
+        ${isSelected ? "ring-2 ring-blue-600 bg-blue-100 border-blue-300" : isToday ? "ring-2 ring-blue-500 bg-blue-50 border-blue-200" : "bg-white border-gray-200 hover:border-blue-300"}`}
     >
       <span className={`text-sm font-bold leading-none ${isToday ? "text-blue-600" : "text-gray-800"}`}>{dayNum}</span>
 
@@ -227,12 +230,23 @@ function WeekGrid({ slots, weekRef, lang, onDayClick, onSlotClick }: {
 // ── Main Page ───────────────────────────────────────────────
 export default function AdminCalendar({ lang }: Props) {
   const nav = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const cal  = useAdminCalendar();
   const week = useAdminCalendarWeek();
+  const dayDrawer = useDayDrawer();
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
 
   useEffect(() => {
     cal.load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Open drawer from URL ?date= on mount
+  useEffect(() => {
+    const dateParam = searchParams.get("date");
+    if (dateParam && !dayDrawer.selectedDate) {
+      dayDrawer.open(dateParam);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -241,7 +255,16 @@ export default function AdminCalendar({ lang }: Props) {
     if (m === "week") week.load();
   };
 
-  const handleDayClick = (dateStr: string) => nav(`/slots?date=${dateStr}`);
+  const handleDayClick = (dateStr: string) => {
+    dayDrawer.open(dateStr);
+    setSearchParams({ date: dateStr });
+  };
+
+  const handleDrawerClose = () => {
+    dayDrawer.close();
+    searchParams.delete("date");
+    setSearchParams(searchParams);
+  };
 
   // Month grid builder
   const buildMonthGrid = () => {
@@ -351,6 +374,7 @@ export default function AdminCalendar({ lang }: Props) {
                     summary={summaryMap[dateStr]}
                     isToday={dateStr === todayStr}
                     isOtherMonth={isOtherMonth}
+                    isSelected={dateStr === dayDrawer.selectedDate}
                     onClick={() => handleDayClick(dateStr)}
                   />
                 ))}
@@ -374,6 +398,21 @@ export default function AdminCalendar({ lang }: Props) {
           lang={lang}
           onClose={() => setSelectedSlot(null)}
           onGoToDetails={(date) => { setSelectedSlot(null); nav(`/slots?date=${date}`); }}
+        />
+      )}
+
+      {dayDrawer.selectedDate && (
+        <DayDrawer
+          lang={lang}
+          selectedDate={dayDrawer.selectedDate}
+          slots={dayDrawer.slots}
+          loading={dayDrawer.loading}
+          error={dayDrawer.error}
+          isExpanded={dayDrawer.isExpanded}
+          toggle={dayDrawer.toggle}
+          handleConfirm={dayDrawer.handleConfirm}
+          onClose={handleDrawerClose}
+          onOpenFullView={(date) => { handleDrawerClose(); nav(`/slots?date=${date}`); }}
         />
       )}
 
