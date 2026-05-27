@@ -11,7 +11,7 @@ interface Props {
 export default function NoticeDetails({ lang, notice, colSpan }: Props) {
   // Klucze bez * (widok tylko do odczytu, nie formularz)
   const fields: Array<{ labelKey: string; value: string | number | null }> = [
-    { labelKey: 'notice_order_number', value: notice.numer_zlecenia },
+    { labelKey: 'notice_numer_zlecenia', value: notice.numer_zlecenia },
     { labelKey: 'notice_vehicle_reg',  value: notice.rejestracja_auta },
     { labelKey: 'notice_trailer_reg',  value: notice.rejestracja_naczepy },
     { labelKey: 'notice_pallet_count', value: notice.ilosc_palet },

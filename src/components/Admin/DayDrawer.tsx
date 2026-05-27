@@ -199,7 +199,7 @@ export default function DayDrawer({
                         {/* Notice fields */}
                         {slot.notice ? (
                           <div>
-                            {field(t("notice_order_number", lang), slot.notice.numer_zlecenia)}
+                            {field(t("notice_numer_zlecenia", lang), slot.notice.numer_zlecenia)}
                             {field(t("notice_reference", lang), slot.notice.referencja)}
                             {field(t("notice_vehicle_reg", lang), slot.notice.rejestracja_auta)}
                             {field(t("notice_trailer_reg", lang), slot.notice.rejestracja_naczepy)}

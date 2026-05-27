@@ -103,7 +103,7 @@ export default function SlotPreviewModal({ slot, lang, onClose, onGoToDetails }:
             )}
             {notice && !loading && (
               <div>
-                {field(t("notice_order_number", lang), notice.numer_zlecenia)}
+                {field(t("notice_numer_zlecenia", lang), notice.numer_zlecenia)}
                 {field(t("notice_reference", lang), notice.referencja)}
                 {field(t("notice_vehicle_reg", lang), notice.rejestracja_auta)}
                 {field(t("notice_trailer_reg", lang), notice.rejestracja_naczepy)}
