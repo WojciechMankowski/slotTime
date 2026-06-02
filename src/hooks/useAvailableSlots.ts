@@ -27,8 +27,10 @@ export default function useAvailableSlots() {
         params: { date_from: dateFrom, date_to: dateTo },
       });
       let available = res.data.filter((s) => s.status === "AVAILABLE");
-      if (typeFilter !== "ALL") {
-        available = available.filter((s) => s.slot_type === typeFilter);
+      if (typeFilter !== "ALL" && typeFilter !== "ANY") {
+        available = available.filter(
+          (s) => s.slot_type === typeFilter || s.slot_type === "ANY"
+        );
       }
       setSlots(available);
     } catch (err) {
