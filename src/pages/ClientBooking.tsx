@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { t, Lang } from "../Helper/i18n";
-import type { Me, Dock } from "../Types/types";
+import type { Me } from "../Types/types";
 import type { Slot, Tab } from "../Types/SlotType";
-import { api } from "../API/api";
-import { toastBus } from "../Helper/toastBus";
-import { getApiError } from "../Helper/helper";
 
 import useFlash from "../hooks/useFlash";
 import useAvailableSlots from "../hooks/useAvailableSlots";
@@ -22,14 +19,6 @@ import TabBtn from "../components/UI/TabBtn";
 
 export default function ClientBooking({ lang, me }: { lang: Lang; me: Me }) {
   const [tab, setTab] = useState<Tab>("available");
-  const [docks, setDocks] = useState<Dock[]>([]);
-
-  useEffect(() => {
-    api.get<Dock[]>("/api/docks")
-      .then(res => setDocks(res.data))
-      .catch(err => toastBus.emit("error", getApiError(err)));
-  }, []);
-
   const { successMsg, flash, dismiss } = useFlash();
   const available = useAvailableSlots();
   const my = useMySlots(me);
@@ -182,29 +171,6 @@ export default function ClientBooking({ lang, me }: { lang: Lang; me: Me }) {
           onConfirm={cancel.confirm}
           onClose={cancel.close}
         />
-      )}
-
-      {/* Active docks */}
-      {docks.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-3">
-            {t("docks", lang)}
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            {docks.map(dock => (
-              <div
-                key={dock.id}
-                className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-4 py-2.5 shadow-sm"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-500 shrink-0">
-                  <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-                </svg>
-                <span className="text-sm font-semibold text-gray-800">{dock.name}</span>
-                <span className="text-xs text-gray-400 font-mono">{dock.alias}</span>
-              </div>
-            ))}
-          </div>
-        </div>
       )}
 
       {/* NoticeModal zachowany dla edycji awizacji z "Moje rezerwacje" */}

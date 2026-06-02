@@ -63,7 +63,7 @@ export default function MyReservationCard({
       </div>
 
       {/* Dock block */}
-      {slot.dock_alias && (
+      {slot.dock_alias && ["CONFIRMED", "RESERVED_CONFIRMED"].includes(slot.status) && (
         <div className="flex flex-col items-center justify-center px-3 py-2 bg-indigo-600 text-white rounded-xl shadow-sm min-w-[80px]">
           <span className="text-[0.6rem] font-bold uppercase tracking-wider opacity-80 leading-none mb-1">
             {t("dock", lang)}
