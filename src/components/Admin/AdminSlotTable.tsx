@@ -7,9 +7,6 @@ const STATUS_STYLE: Record<string, { bg: string; text: string }> = {
   AVAILABLE:                { bg: "bg-emerald-100", text: "text-emerald-800" },
   PENDING_CONFIRMATION:     { bg: "bg-amber-100",   text: "text-amber-800"   },
   CONFIRMED:                { bg: "bg-indigo-100",  text: "text-indigo-800"  },
-  BOOKED:                   { bg: "bg-amber-100",   text: "text-amber-800"   },
-  APPROVED_WAITING_DETAILS: { bg: "bg-blue-100",    text: "text-blue-800"    },
-  RESERVED_CONFIRMED:       { bg: "bg-indigo-100",  text: "text-indigo-800"  },
   COMPLETED:                { bg: "bg-gray-100",    text: "text-gray-600"    },
   CANCELLED:                { bg: "bg-red-100",     text: "text-red-700"     },
   CANCEL_PENDING:           { bg: "bg-orange-100",  text: "text-orange-700"  },
@@ -68,9 +65,6 @@ export default function TableAdminSlot({
     "CANCEL_PENDING",
     "PENDING_CONFIRMATION",
     "CONFIRMED",
-    "BOOKED",
-    "RESERVED_CONFIRMED",
-    "APPROVED_WAITING_DETAILS",
     "AVAILABLE",
     "COMPLETED",
     "CANCELLED",
@@ -84,9 +78,6 @@ export default function TableAdminSlot({
     CANCEL_PENDING:           { bar: "bg-orange-100 border-orange-300", label: "text-orange-800" },
     PENDING_CONFIRMATION:     { bar: "bg-amber-100 border-amber-300",   label: "text-amber-800"  },
     CONFIRMED:                { bar: "bg-indigo-100 border-indigo-300", label: "text-indigo-800" },
-    BOOKED:                   { bar: "bg-amber-100 border-amber-300",   label: "text-amber-800"  },
-    RESERVED_CONFIRMED:       { bar: "bg-indigo-100 border-indigo-300", label: "text-indigo-800" },
-    APPROVED_WAITING_DETAILS: { bar: "bg-blue-100 border-blue-300",     label: "text-blue-800"   },
     AVAILABLE:                { bar: "bg-emerald-100 border-emerald-300", label: "text-emerald-800" },
     COMPLETED:                { bar: "bg-gray-100 border-gray-300",     label: "text-gray-600"   },
     CANCELLED:                { bar: "bg-red-100 border-red-300",       label: "text-red-700"    },
@@ -100,9 +91,6 @@ export default function TableAdminSlot({
     CANCEL_PENDING:           "cancel_pending",
     PENDING_CONFIRMATION:     "pending_confirmation",
     CONFIRMED:                "confirmed",
-    BOOKED:                   "booked",
-    RESERVED_CONFIRMED:       "reserved_confirmed",
-    APPROVED_WAITING_DETAILS: "approved_waiting_details",
     AVAILABLE:                "available",
     COMPLETED:                "completed",
     CANCELLED:                "cancelled",
@@ -191,9 +179,6 @@ export default function TableAdminSlot({
                     <option value="AVAILABLE">{t("available", lang)}</option>
                     <option value="PENDING_CONFIRMATION">{t("pending_confirmation", lang)}</option>
                     <option value="CONFIRMED">{t("confirmed", lang)}</option>
-                    <option value="BOOKED">{t("booked", lang)}</option>
-                    <option value="APPROVED_WAITING_DETAILS">{t("approved_waiting_details", lang)}</option>
-                    <option value="RESERVED_CONFIRMED">{t("reserved_confirmed", lang)}</option>
                     <option value="COMPLETED">{t("completed", lang)}</option>
                     <option value="CANCELLED">{t("cancelled", lang)}</option>
                     <option value="CANCEL_PENDING">{t("cancel_pending", lang)}</option>
@@ -298,7 +283,7 @@ export default function TableAdminSlot({
                           </button>
                         )}
                       </div>
-                    ) : row.status === "PENDING_CONFIRMATION" || row.status === "BOOKED" || row.status === "APPROVED_WAITING_DETAILS" ? (
+                    ) : row.status === "PENDING_CONFIRMATION" ? (
                       <button
                         onClick={() => onStatusChange(slotId, "AVAILABLE")}
                         className="p-2 rounded-xl text-gray-400 hover:text-orange-600 hover:bg-orange-50 transition-all group-hover:bg-gray-50"

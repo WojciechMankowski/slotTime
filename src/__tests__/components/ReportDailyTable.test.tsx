@@ -7,9 +7,8 @@ const makeRow = (overrides: Partial<ReportDayRow> = {}): ReportDayRow => ({
   date: "2025-06-01",
   total: 10,
   available: 3,
-  booked: 2,
-  approved_waiting_details: 1,
-  reserved_confirmed: 1,
+  pending_confirmation: 2,
+  confirmed: 2,
   completed: 2,
   cancelled: 1,
   cancel_pending: 0,
@@ -74,10 +73,10 @@ describe("ReportDailyTable", () => {
     expect(container.innerHTML).toContain("red");
   });
 
-  it("sums booked + approved_waiting_details + reserved_confirmed for active column", () => {
-    const row = makeRow({ booked: 3, approved_waiting_details: 2, reserved_confirmed: 1 });
+  it("sums pending_confirmation + confirmed for active column", () => {
+    const row = makeRow({ pending_confirmation: 4, confirmed: 2 });
     render(<ReportDailyTable rows={[row]} lang="pl" />);
-    // active = 3 + 2 + 1 = 6
+    // active = 4 + 2 = 6
     expect(screen.getByText("6")).toBeInTheDocument();
   });
 

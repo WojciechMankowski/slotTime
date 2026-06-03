@@ -6,9 +6,8 @@ import type { ReportSummary } from "../../hooks/useReports";
 const baseSummary: ReportSummary = {
   total: 100,
   available: 20,
-  booked: 10,
-  approved_waiting_details: 5,
-  reserved_confirmed: 5,
+  pending_confirmation: 10,
+  confirmed: 5,
   completed: 50,
   cancelled: 10,
   cancel_pending: 2,

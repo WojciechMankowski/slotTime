@@ -28,7 +28,7 @@ export default function ReportDailyChart({ rows, lang }: Props) {
         {rows.map((r, i) => {
           const x = GAP + i * (BAR_W + GAP);
           const completedH = Math.round((r.completed / maxTotal) * BAR_H);
-          const activeH = Math.round(((r.booked + r.approved_waiting_details + r.reserved_confirmed + r.cancel_pending) / maxTotal) * BAR_H);
+          const activeH = Math.round(((r.pending_confirmation + r.confirmed + r.cancel_pending) / maxTotal) * BAR_H);
           const cancelledH = Math.round((r.cancelled / maxTotal) * BAR_H);
           const availableH = Math.round((r.available / maxTotal) * BAR_H);
 

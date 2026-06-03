@@ -5,9 +5,8 @@ import { getApiError } from "../Helper/helper";
 export interface ReportSummary {
   total: number;
   available: number;
-  booked: number;
-  approved_waiting_details: number;
-  reserved_confirmed: number;
+  pending_confirmation: number;
+  confirmed: number;
   completed: number;
   cancelled: number;
   cancel_pending: number;
@@ -21,9 +20,8 @@ export interface ReportDayRow {
   date: string;
   total: number;
   available: number;
-  booked: number;
-  approved_waiting_details: number;
-  reserved_confirmed: number;
+  pending_confirmation: number;
+  confirmed: number;
   completed: number;
   cancelled: number;
   cancel_pending: number;
@@ -52,9 +50,8 @@ export interface ReportWarehouseRow {
   warehouse_alias: string;
   total: number;
   available: number;
-  booked: number;
-  approved_waiting_details: number;
-  reserved_confirmed: number;
+  pending_confirmation: number;
+  confirmed: number;
   completed: number;
   cancelled: number;
   cancel_pending: number;

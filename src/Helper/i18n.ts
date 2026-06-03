@@ -111,9 +111,7 @@ export const dict: Dict = {
   confirmed: { pl: 'Potwierdzony', en: 'Confirmed' },
   confirm: { pl: 'Potwierdź', en: 'Confirm' },
   book_and_notify: { pl: 'Zarezerwuj i złóż awizację', en: 'Book and submit notice' },
-  booked: { pl: 'Oczekuje na potwierdzenie', en: 'Awaiting confirmation' },
-  approved_waiting_details: { pl: 'Oczekuje na szczegóły', en: 'Awaiting details' },
-  reserved_confirmed: { pl: 'Potwierdzony', en: 'Confirmed' },
+  booked: { pl: 'Zarezerwowane', en: 'Reserved' },
   completed: { pl: 'Zakończony', en: 'Completed' },
   cancelled: { pl: 'Anulowany', en: 'Cancelled' },
   close_slot: { pl: 'Zamknij slot', en: 'Close slot' },
@@ -281,7 +279,7 @@ notice_notes:         { pl: 'Uwagi',                       en: 'Notes' },
 }
 
 export function t(key: keyof typeof dict, lang: Lang): string {
-  return dict[key][lang]
+  return dict[key]?.[lang] ?? (key as string)
 }
 
 export const errorText: Dict = {

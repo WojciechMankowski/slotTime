@@ -41,7 +41,7 @@ export default function ReportKpiCards({ summary, lang }: Props) {
       <KpiCard
         label={t("kpi_completed", lang)}
         value={String(summary.completed)}
-        sub={`${t("reserved_confirmed", lang)}: ${summary.reserved_confirmed}`}
+        sub={`${t("confirmed", lang)}: ${summary.confirmed}`}
         color="bg-green-50 border-green-200 text-green-900"
       />
       <KpiCard

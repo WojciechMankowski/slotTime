@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { Lang, t } from "../Helper/i18n";
 import { api } from "../API/api";
 import type { Company } from "../Types/types";
@@ -28,6 +28,18 @@ export default function Notices({ lang }: { lang: Lang }) {
     collapseAll();
     load(filters);
   }, [filters, load, collapseAll]);
+
+  // Filtry klienckie (natychmiastowe): typ awizacji + rejestracje (fragment, bez wielkości liter)
+  const filteredNotices = useMemo(() => {
+    const regAuta = filters.regAuta.trim().toLowerCase();
+    const regNaczepa = filters.regNaczepa.trim().toLowerCase();
+    return notices.filter(n => {
+      if (filters.slotType !== '--' && n.slot_type !== filters.slotType) return false;
+      if (regAuta && !(n.notice?.rejestracja_auta ?? '').toLowerCase().includes(regAuta)) return false;
+      if (regNaczepa && !(n.notice?.rejestracja_naczepy ?? '').toLowerCase().includes(regNaczepa)) return false;
+      return true;
+    });
+  }, [notices, filters.slotType, filters.regAuta, filters.regNaczepa]);
 
   useEffect(() => {
     load(filters);
@@ -72,10 +84,10 @@ export default function Notices({ lang }: { lang: Lang }) {
       </div>
 
       {/* Summary */}
-      {notices.length > 0 && (
+      {filteredNotices.length > 0 && (
         <div className="mb-4 text-sm text-gray-500">
           {t("notices_count", lang)}:{" "}
-          <strong className="text-gray-900">{notices.length}</strong>
+          <strong className="text-gray-900">{filteredNotices.length}</strong>
         </div>
       )}
 
@@ -97,7 +109,7 @@ export default function Notices({ lang }: { lang: Lang }) {
         ) : (
           <NoticeTable
             lang={lang}
-            notices={notices}
+            notices={filteredNotices}
             isExpanded={isExpanded}
             onToggle={toggle}
           />

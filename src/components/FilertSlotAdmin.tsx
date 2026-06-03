@@ -13,6 +13,10 @@ interface Props {
   setEndDo: (end: string) => void;
   setTypeSlot: (name: string) => void;
   setStatus: (name: string) => void;
+  regAuta: string;
+  regNaczepa: string;
+  setRegAuta: (value: string) => void;
+  setRegNaczepa: (value: string) => void;
 }
 
 function FilterSlotAdmin({
@@ -24,6 +28,10 @@ function FilterSlotAdmin({
   setEndDo,
   setStatus,
   setTypeSlot,
+  regAuta,
+  regNaczepa,
+  setRegAuta,
+  setRegNaczepa,
 }: Props) {
   return (
     <div className="flex flex-wrap gap-4 items-end">
@@ -78,6 +86,26 @@ function FilterSlotAdmin({
           <option value="NO_SHOW">{t('no_show', lang)}</option>
           <option value="CANCEL_REJECTED">{t('cancel_rejected', lang)}</option>
         </select>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('notice_vehicle_reg', lang)}</label>
+        <input
+          type="text"
+          value={regAuta}
+          onChange={(e) => setRegAuta(e.target.value)}
+          className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-w-[140px]"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('notice_trailer_reg', lang)}</label>
+        <input
+          type="text"
+          value={regNaczepa}
+          onChange={(e) => setRegNaczepa(e.target.value)}
+          className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-w-[140px]"
+        />
       </div>
 
       <button

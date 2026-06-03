@@ -29,4 +29,7 @@ export interface NoticeFilters {
   dateTo: string
   status: string
   companyAlias: string
+  slotType: string
+  regAuta: string
+  regNaczepa: string
 }

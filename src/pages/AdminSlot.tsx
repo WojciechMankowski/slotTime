@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { t, Lang } from "../Helper/i18n";
 import { Me } from "../Types/types";
@@ -41,6 +41,20 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
   } = useAdminSlots(lang, initialDate);
 
   const [deleteTarget, setDeleteTarget] = useState<{ id: number; label: string } | null>(null);
+
+  // Filtry klienckie (natychmiastowe) po rejestracji — fragment, bez wielkości liter
+  const [regAuta, setRegAuta] = useState("");
+  const [regNaczepa, setRegNaczepa] = useState("");
+  const filteredSlots = useMemo(() => {
+    const a = regAuta.trim().toLowerCase();
+    const n = regNaczepa.trim().toLowerCase();
+    if (!a && !n) return slotsAdmin;
+    return slotsAdmin.filter(s => {
+      if (a && !(s.notice?.rejestracja_auta ?? "").toLowerCase().includes(a)) return false;
+      if (n && !(s.notice?.rejestracja_naczepy ?? "").toLowerCase().includes(n)) return false;
+      return true;
+    });
+  }, [slotsAdmin, regAuta, regNaczepa]);
 
   // Bulk delete state
   const [bulkDateFrom, setBulkDateFrom] = useState(new Date().toISOString().slice(0, 10));
@@ -134,6 +148,10 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
           setEndDo={setEndDo}
           setStatus={setStatusFilter}
           setTypeSlot={setTypeSlot}
+          regAuta={regAuta}
+          regNaczepa={regNaczepa}
+          setRegAuta={setRegAuta}
+          setRegNaczepa={setRegNaczepa}
         />
         {errorLoad && <ErrorBanner msg={errorLoad} />}
       </div>
@@ -205,12 +223,12 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
       )}
 
       {/* Summary */}
-      {slotsAdmin.length > 0 && (() => {
-        const byStatus = slotsAdmin.reduce<Record<string, number>>((acc, s) => {
+      {filteredSlots.length > 0 && (() => {
+        const byStatus = filteredSlots.reduce<Record<string, number>>((acc, s) => {
           acc[s.status] = (acc[s.status] ?? 0) + 1;
           return acc;
         }, {});
-        const byType = slotsAdmin.reduce<Record<string, number>>((acc, s) => {
+        const byType = filteredSlots.reduce<Record<string, number>>((acc, s) => {
           const key = s.original_slot_type;
           acc[key] = (acc[key] ?? 0) + 1;
           return acc;
@@ -220,9 +238,6 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
           AVAILABLE:                "bg-emerald-100 text-emerald-800",
           PENDING_CONFIRMATION:     "bg-amber-100 text-amber-800",
           CONFIRMED:                "bg-indigo-100 text-indigo-800",
-          BOOKED:                   "bg-amber-100 text-amber-800",
-          APPROVED_WAITING_DETAILS: "bg-blue-100 text-blue-800",
-          RESERVED_CONFIRMED:       "bg-indigo-100 text-indigo-800",
           COMPLETED:                "bg-gray-100 text-gray-600",
           CANCELLED:                "bg-red-100 text-red-700",
           CANCEL_PENDING:           "bg-orange-100 text-orange-700",
@@ -235,9 +250,6 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
           AVAILABLE:                "available",
           PENDING_CONFIRMATION:     "pending_confirmation",
           CONFIRMED:                "confirmed",
-          BOOKED:                   "booked",
-          APPROVED_WAITING_DETAILS: "approved_waiting_details",
-          RESERVED_CONFIRMED:       "reserved_confirmed",
           COMPLETED:                "completed",
           CANCELLED:                "cancelled",
           CANCEL_PENDING:           "cancel_pending",
@@ -252,7 +264,7 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
             <div className="flex flex-wrap items-center gap-4">
               {/* Total */}
               <div className="flex items-center gap-1.5 text-sm font-bold text-gray-700 pr-4 border-r border-gray-200">
-                <span className="text-2xl font-black text-indigo-600">{slotsAdmin.length}</span>
+                <span className="text-2xl font-black text-indigo-600">{filteredSlots.length}</span>
                 <span className="text-xs text-gray-500 font-semibold uppercase tracking-wide">{t("slots", lang)}</span>
               </div>
 
@@ -330,7 +342,7 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
         {errorDelete && <ErrorBanner msg={errorDelete} compact />}
 
         <TableAdminSlot
-          rows={slotsAdmin}
+          rows={filteredSlots}
           docks={dockAdmin}
           lang={lang}
           onDockChange={onDockChange}

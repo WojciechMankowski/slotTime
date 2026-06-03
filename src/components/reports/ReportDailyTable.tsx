@@ -35,7 +35,7 @@ export default function ReportDailyTable({ rows, lang }: Props) {
               <td className={`${tdCls} font-bold text-gray-900`}>{r.date}</td>
               <td className={`${tdCls} font-semibold text-indigo-700`}>{r.total}</td>
               <td className={`${tdCls} text-gray-500`}>{r.available}</td>
-              <td className={`${tdCls} text-amber-600`}>{r.booked + r.approved_waiting_details + r.reserved_confirmed}</td>
+              <td className={`${tdCls} text-amber-600`}>{r.pending_confirmation + r.confirmed}</td>
               <td className={`${tdCls} text-emerald-600 font-semibold`}>{r.completed}</td>
               <td className={`${tdCls} text-red-500`}>{r.cancelled}</td>
               <td className={`${tdCls} text-blue-600`}>{r.inbound}</td>

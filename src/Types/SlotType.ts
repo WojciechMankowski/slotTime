@@ -1,3 +1,5 @@
+import type { NoticeData } from "./NoticeType";
+
 export type SlotType = "INBOUND" | "OUTBOUND" | "ANY" | "ALL";
 
 export interface Slot {
@@ -6,13 +8,14 @@ export interface Slot {
   end_dt: string;
   slot_type: "INBOUND" | "OUTBOUND" | "ANY";
   original_slot_type: "INBOUND" | "OUTBOUND" | "ANY";
-  status: "AVAILABLE" | "PENDING_CONFIRMATION" | "CONFIRMED" | "BOOKED" | "APPROVED_WAITING_DETAILS" | "RESERVED_CONFIRMED" | "COMPLETED" | "CANCELLED" | "CANCEL_PENDING" | "REJECTED" | "EXPIRED" | "NO_SHOW" | "CANCEL_REJECTED";
+  status: "AVAILABLE" | "PENDING_CONFIRMATION" | "CONFIRMED" | "COMPLETED" | "CANCELLED" | "CANCEL_PENDING" | "REJECTED" | "EXPIRED" | "NO_SHOW" | "CANCEL_REJECTED";
   dock_id: number | null;
   dock_alias: string | null;
   reserved_by_user_id: number | null;
   reserved_by_alias: string | null;
   reserved_by_company_alias: string | null;
   reserved_by_company_name: string | null;
+  notice?: NoticeData | null;
 }
 
 

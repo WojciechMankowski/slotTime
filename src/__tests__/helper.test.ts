@@ -142,9 +142,6 @@ describe("STATUS_STYLE", () => {
     const expected = [
       "PENDING_CONFIRMATION",
       "CONFIRMED",
-      "BOOKED",
-      "APPROVED_WAITING_DETAILS",
-      "RESERVED_CONFIRMED",
       "COMPLETED",
       "CANCELLED",
       "CANCEL_PENDING",

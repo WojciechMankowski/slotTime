@@ -91,6 +91,46 @@ export default function NoticeFiltersBar({
         </select>
       </div>
 
+      <div className="flex flex-col gap-1">
+        <label className="text-[0.85rem] text-[var(--text-muted)] font-medium">
+          {t('type', lang)}
+        </label>
+        <select
+          className={inputClass}
+          value={filters.slotType}
+          onChange={e => onFilterChange('slotType', e.target.value)}
+        >
+          <option value="--">--</option>
+          <option value="INBOUND">{t('inbound', lang)}</option>
+          <option value="OUTBOUND">{t('outbound', lang)}</option>
+          <option value="ANY">{t('any', lang)}</option>
+        </select>
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label className="text-[0.85rem] text-[var(--text-muted)] font-medium">
+          {t('notice_vehicle_reg', lang)}
+        </label>
+        <input
+          type="text"
+          className={inputClass}
+          value={filters.regAuta}
+          onChange={e => onFilterChange('regAuta', e.target.value)}
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label className="text-[0.85rem] text-[var(--text-muted)] font-medium">
+          {t('notice_trailer_reg', lang)}
+        </label>
+        <input
+          type="text"
+          className={inputClass}
+          value={filters.regNaczepa}
+          onChange={e => onFilterChange('regNaczepa', e.target.value)}
+        />
+      </div>
+
       <button
         className="bg-gradient-to-r from-blue-600 to-blue-700 text-white border-none rounded-lg px-5 py-2 text-sm font-medium cursor-pointer transition-all duration-200 shadow-md shadow-blue-600/30 hover:-translate-y-[1px] active:translate-y-0 disabled:opacity-70"
         onClick={onApply}

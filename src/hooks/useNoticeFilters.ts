@@ -8,6 +8,9 @@ const DEFAULT_FILTERS: NoticeFilters = {
   dateTo: today,
   status: '--',
   companyAlias: '--',
+  slotType: '--',
+  regAuta: '',
+  regNaczepa: '',
 }
 
 export function useNoticeFilters(initial?: Partial<NoticeFilters>) {
