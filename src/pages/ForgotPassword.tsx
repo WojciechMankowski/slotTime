@@ -57,6 +57,10 @@ export default function ForgotPassword({
     e.preventDefault()
     if (loading) return
     setErr(null)
+    if (!/^\d{6}$/.test(code)) {
+      setErr(t('code_invalid', lang))
+      return
+    }
     setLoading(true)
     try {
       await verifyResetCode(email, code)

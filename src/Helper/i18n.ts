@@ -29,6 +29,7 @@ export const dict: Dict = {
   send_code: { pl: 'Wyślij kod', en: 'Send code' },
   code_sent_info: { pl: 'Jeśli konto istnieje, wysłaliśmy kod weryfikacyjny na podany adres e-mail.', en: 'If an account exists, we have sent a verification code to that e-mail.' },
   code: { pl: 'Kod weryfikacyjny', en: 'Verification code' },
+  code_invalid: { pl: 'Kod musi składać się z 6 cyfr.', en: 'The code must be 6 digits.' },
   verify: { pl: 'Zweryfikuj', en: 'Verify' },
   resend_code: { pl: 'Wyślij kod ponownie', en: 'Resend code' },
   new_password: { pl: 'Nowe hasło', en: 'New password' },
