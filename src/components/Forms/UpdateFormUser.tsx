@@ -34,6 +34,7 @@ export default function UpdateFormUser({
   const [password, setPassword] = useState("");
   const [alias, setAlias] = useState(user.alias);
   const [role, setRole] = useState(user.role);
+  const [userLang, setUserLang] = useState<Lang>(user.lang);
   const [companyId, setCompanyId] = useState<number | null>(user.company_id);
   const [warehouseId, setWarehouseId] = useState<number | null>(user.warehouse_id);
   const [companies, setCompanies] = useState<CompanyResponse[]>([]);
@@ -66,6 +67,7 @@ export default function UpdateFormUser({
         email: email || null,
         alias,
         role: role as any,
+        lang: userLang,
         company_id: role === "client" ? companyId : null,
         warehouse_id: role === "admin" ? warehouseId : null,
         ...(password ? { password } : {}),
@@ -121,6 +123,18 @@ export default function UpdateFormUser({
                 options={roles}
                 defaultValue={role}
                 onChange={(val) => setRole(val as any)}
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <Label label={t("default_language", lang)} />
+              <Select
+                name="lang_select"
+                options={[
+                  { value: "pl", label: t("lang_pl", lang) },
+                  { value: "en", label: t("lang_en", lang) },
+                ]}
+                defaultValue={userLang}
+                onChange={(val) => setUserLang(val as Lang)}
               />
             </div>
             {role === "client" && (

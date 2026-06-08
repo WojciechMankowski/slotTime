@@ -4,9 +4,11 @@ import { t, Lang, errorText } from '../Helper/i18n'
 
 export default function Login({
   lang,
+  onLang,
   onLoggedIn,
 }: {
   lang: Lang
+  onLang: (l: Lang) => void
   onLoggedIn: () => void
 }) {
   const [username, setUsername] = useState('')
@@ -42,7 +44,25 @@ export default function Login({
         <div className="w-full max-w-sm mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
 
           {/* Nagłówek karty */}
-          <div className="bg-linear-to-br from-blue-600 to-blue-800 px-8 py-6 text-center">
+          <div className="relative bg-linear-to-br from-blue-600 to-blue-800 px-8 py-6 text-center">
+            {/* Przełącznik języka (dotyczy tylko ekranu logowania) */}
+            <div className="absolute top-3 right-3 flex items-center gap-1">
+              {(['pl', 'en'] as Lang[]).map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  aria-label={l.toUpperCase()}
+                  onClick={() => onLang(l)}
+                  className={`flex items-center justify-center rounded-md p-1 transition-opacity ${lang === l ? 'opacity-100 ring-2 ring-white/80' : 'opacity-50 hover:opacity-80'}`}
+                >
+                  <img
+                    src={l === 'pl' ? 'https://flagcdn.com/w20/pl.png' : 'https://flagcdn.com/w20/gb.png'}
+                    alt={l.toUpperCase()}
+                    width="20"
+                  />
+                </button>
+              ))}
+            </div>
             <img
               src="/static/MCG-logo.png"
               alt="Logo"

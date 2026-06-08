@@ -8,6 +8,7 @@ const emptyUser: UserOut = {
   username: "",
   alias: "",
   role: "client",
+  lang: "pl",
   warehouse_id: null,
   company_id: null,
   company_alias: null,

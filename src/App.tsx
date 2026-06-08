@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { api, setToken, setRefreshToken } from './API/api'
+import { patchMyLang } from './API/serviceUser'
 import { getLang, setLang, t, Lang } from './Helper/i18n'
 import type { Me } from './Types/types'
 
 import Login from './pages/Login'
+import LangConflictModal from './components/UI/LangConflictModal'
 
 import Slots from './pages/Slots'
 import Notices from './pages/Notices'
@@ -26,6 +28,7 @@ import ToastContainer from './components/UI/ToastContainer'
 export default function App() {
   const [me, setMe] = useState<Me | null>(null)
   const [lang, setLangState] = useState<Lang>(getLang())
+  const [langConflict, setLangConflict] = useState<{ local: Lang; account: Lang } | null>(null)
   const nav = useNavigate()
 
   const loadMe = async () => {
@@ -36,6 +39,37 @@ export default function App() {
     } catch {
       setMe(null)
     }
+  }
+
+  // Po udanym logowaniu: porównaj język przeglądarki z językiem konta.
+  // Przy rozbieżności pokaż modal do rozstrzygnięcia (nie cicho nadpisuj).
+  const onLoggedIn = async () => {
+    if (!localStorage.getItem('token')) return
+    try {
+      const res = await api.get('/api/me')
+      const meData: Me = res.data
+      setMe(meData)
+      const localLang = getLang()
+      if (meData.lang !== localLang) {
+        setLangConflict({ local: localLang, account: meData.lang })
+      }
+    } catch {
+      setMe(null)
+    }
+  }
+
+  const resolveLangConflict = async (chosen: Lang) => {
+    onLang(chosen)
+    if (langConflict && chosen === langConflict.local) {
+      // Wybrano język przeglądarki — zapisz go do konta, by kolejne logowania były spójne.
+      try {
+        await patchMyLang(chosen)
+        setMe((prev) => (prev ? { ...prev, lang: chosen } : prev))
+      } catch {
+        /* zapis najlepszym wysiłkiem — UI i tak ustawione na wybrany język */
+      }
+    }
+    setLangConflict(null)
   }
 
   useEffect(() => {
@@ -58,7 +92,7 @@ export default function App() {
   if (!me) {
     return (
       <Routes>
-        <Route path="/login" element={<Login lang={lang} onLoggedIn={loadMe} />} />
+        <Route path="/login" element={<Login lang={lang} onLang={onLang} onLoggedIn={onLoggedIn} />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     )
@@ -135,6 +169,14 @@ export default function App() {
           </Routes>
         </div>
       </div>
+      {langConflict && (
+        <LangConflictModal
+          local={langConflict.local}
+          account={langConflict.account}
+          lang={lang}
+          onChoose={resolveLangConflict}
+        />
+      )}
       <ToastContainer />
     </div>
   )

@@ -22,6 +22,7 @@ export interface Me {
   email?: string | null
   alias: string
   role: Role
+  lang: 'pl' | 'en'
   company: Company | null
   warehouse: Warehouse | null
 }
@@ -53,6 +54,7 @@ export interface UserOut {
   email?: string | null
   alias: string
   role: Role
+  lang: 'pl' | 'en'
   warehouse_id: number | null
   company_id: number | null
   company_alias: string | null

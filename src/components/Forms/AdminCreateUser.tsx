@@ -8,7 +8,7 @@ import { getCompanies } from "../../API/serviceCompany";
 import { getWarehouses } from "../../API/serviceWarehouse";
 import { CompanyResponse } from "../../Types/apiType";
 import { Warehouse } from "../../Types/types";
-import { t, getLang } from "../../Helper/i18n";
+import { t, getLang, Lang } from "../../Helper/i18n";
 import { getApiError } from "../../Helper/helper";
 
 const AdminCreateUser = ({ onSuccess, isSuperadmin }: { onSuccess?: () => void; isSuperadmin?: boolean }) => {
@@ -19,6 +19,7 @@ const AdminCreateUser = ({ onSuccess, isSuperadmin }: { onSuccess?: () => void; 
   const [companyId, setCompanyId] = useState<number | null>(null);
   const [warehouseId, setWarehouseId] = useState<number | null>(null);
   const [role, setRole] = useState<"client" | "admin">("client");
+  const [userLang, setUserLang] = useState<Lang>("pl");
   const [companies, setCompanies] = useState<CompanyResponse[]>([]);
   const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -54,6 +55,7 @@ const AdminCreateUser = ({ onSuccess, isSuperadmin }: { onSuccess?: () => void; 
         password,
         alias,
         role,
+        lang: userLang,
         company_id: role === "client" ? companyId : null,
         warehouse_id: role === "admin" ? warehouseId : null,
       });
@@ -118,6 +120,18 @@ const AdminCreateUser = ({ onSuccess, isSuperadmin }: { onSuccess?: () => void; 
               name="role_select"
               options={roles}
               onChange={(val) => setRole(val as "client" | "admin")}
+            />
+          </div>
+          <div className="form-group w-full">
+            <Label label={t('default_language', getLang())} />
+            <Select
+              name="lang_select"
+              options={[
+                { value: "pl", label: t("lang_pl", getLang()) },
+                { value: "en", label: t("lang_en", getLang()) },
+              ]}
+              defaultValue={userLang}
+              onChange={(val) => setUserLang(val as Lang)}
             />
           </div>
           {role === "client" && (

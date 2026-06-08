@@ -215,6 +215,9 @@ function WeekGrid({ slots, weekRef, lang, onDayClick, onSlotClick }: {
                       {" "}
                       {slot.slot_type}
                     </div>
+                    {slot.reserved_by_company_alias && (
+                      <div className="text-[0.55rem] font-semibold leading-tight truncate">{slot.reserved_by_company_alias}</div>
+                    )}
                     <div className="text-[0.55rem] opacity-70 truncate">{slot.status}</div>
                   </button>
                 );

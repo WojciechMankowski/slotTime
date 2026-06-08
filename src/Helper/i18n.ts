@@ -276,6 +276,15 @@ notice_notes:         { pl: 'Uwagi',                       en: 'Notes' },
   error_offline:         { pl: 'Brak połączenia z serwerem',              en: 'Cannot reach the server' },
   error_boundary_title:  { pl: 'Coś poszło nie tak',                      en: 'Something went wrong' },
   error_boundary_refresh:{ pl: 'Odśwież stronę',                         en: 'Refresh page' },
+
+  // --- Język konta / uzgadnianie ---
+  default_language:   { pl: 'Domyślny język',  en: 'Default language' },
+  lang_pl:            { pl: 'Polski',          en: 'Polish' },
+  lang_en:           { pl: 'Angielski',       en: 'English' },
+  lang_conflict_title:{ pl: 'Wybór języka',    en: 'Language selection' },
+  lang_conflict_desc: { pl: 'Język tej przeglądarki różni się od języka Twojego konta. Który chcesz zachować?', en: 'This browser language differs from your account language. Which one do you want to keep?' },
+  lang_keep_browser:  { pl: 'Język przeglądarki', en: 'Browser language' },
+  lang_keep_account:  { pl: 'Język konta',     en: 'Account language' },
 }
 
 export function t(key: keyof typeof dict, lang: Lang): string {
