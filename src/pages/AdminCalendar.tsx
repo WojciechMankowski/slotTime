@@ -133,7 +133,8 @@ function WeekGrid({ slots, weekRef, lang, onDayClick, onSlotClick }: {
   const hours: number[] = [];
   for (let h = 6; h <= 22; h++) hours.push(h);
 
-  const CELL_H = 48; // px per hour row
+  const CELL_H = 84; // px per hour row
+  const MIN_SLOT_H = 40; // px – minimalna wysokość bloku slotu
   const GRID_H = (GRID_SPAN / 60) * CELL_H; // total grid height px
 
   return (
@@ -196,7 +197,7 @@ function WeekGrid({ slots, weekRef, lang, onDayClick, onSlotClick }: {
                 const startMin = Math.max(dtToMinutes(slot.start_dt), GRID_START);
                 const endMin   = Math.min(dtToMinutes(slot.end_dt),   GRID_END);
                 const topPct   = (startMin - GRID_START) / GRID_SPAN;
-                const heightPct = Math.max((endMin - startMin) / GRID_SPAN, 20 / GRID_H);
+                const heightPct = Math.max((endMin - startMin) / GRID_SPAN, MIN_SLOT_H / GRID_H);
                 const colorClass = TYPE_STYLE[slot.slot_type] ?? "bg-blue-100 text-blue-800";
 
                 return (
@@ -206,8 +207,8 @@ function WeekGrid({ slots, weekRef, lang, onDayClick, onSlotClick }: {
                     className={`absolute inset-x-0.5 rounded-lg px-1.5 py-1 text-left overflow-hidden border border-white/50 shadow-sm hover:shadow-md hover:scale-[1.01] transition-all ${colorClass}`}
                     style={{
                       top: `${topPct * 100}%`,
-                      height: `${Math.max(heightPct * 100, (20 / GRID_H) * 100)}%`,
-                      minHeight: "20px",
+                      height: `${Math.max(heightPct * 100, (MIN_SLOT_H / GRID_H) * 100)}%`,
+                      minHeight: `${MIN_SLOT_H}px`,
                     }}
                   >
                     <div className="text-[0.6rem] font-bold leading-tight truncate">
