@@ -6,6 +6,7 @@ import { getLang, setLang, t, Lang } from './Helper/i18n'
 import type { Me } from './Types/types'
 
 import Login from './pages/Login'
+import ForgotPassword from './pages/ForgotPassword'
 import LangConflictModal from './components/UI/LangConflictModal'
 
 import Slots from './pages/Slots'
@@ -93,6 +94,7 @@ export default function App() {
     return (
       <Routes>
         <Route path="/login" element={<Login lang={lang} onLang={onLang} onLoggedIn={onLoggedIn} />} />
+        <Route path="/forgot-password" element={<ForgotPassword lang={lang} onLang={onLang} />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     )

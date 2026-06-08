@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { api, setToken, setRefreshToken } from '../API/api'
 import { t, Lang, errorText } from '../Helper/i18n'
 
@@ -123,6 +124,10 @@ export default function Login({
                   {err}
                 </div>
               )}
+
+              <NavLink to="/forgot-password" className="text-xs text-blue-600 hover:text-blue-800 text-center mt-1">
+                {t('forgot_password', lang)}
+              </NavLink>
             </form>
           </div>
 

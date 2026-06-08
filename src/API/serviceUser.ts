@@ -34,3 +34,18 @@ export const deleteUser = async (userId: number): Promise<void> => {
   await api.delete(`/api/users/${userId}`)
 }
 
+export const forgotPassword = async (email: string) => {
+  const res = await api.post('/api/forgot-password', { email })
+  return res.data
+}
+
+export const verifyResetCode = async (email: string, code: string) => {
+  const res = await api.post('/api/verify-reset-code', { email, code })
+  return res.data
+}
+
+export const resetPassword = async (email: string, code: string, new_password: string) => {
+  const res = await api.post('/api/reset-password', { email, code, new_password })
+  return res.data
+}
+
