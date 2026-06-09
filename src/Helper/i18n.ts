@@ -302,6 +302,14 @@ notice_notes:         { pl: 'Uwagi',                       en: 'Notes' },
   lang_conflict_desc: { pl: 'Język tej przeglądarki różni się od języka Twojego konta. Który chcesz zachować?', en: 'This browser language differs from your account language. Which one do you want to keep?' },
   lang_keep_browser:  { pl: 'Język przeglądarki', en: 'Browser language' },
   lang_keep_account:  { pl: 'Język konta',     en: 'Account language' },
+
+  // Logowanie dwuetapowe (2FA)
+  account:            { pl: 'Konto',           en: 'Account' },
+  two_factor:         { pl: 'Logowanie dwuetapowe', en: 'Two-step login' },
+  two_factor_email_required: { pl: 'Wymaga adresu e-mail.', en: 'Requires an email address.' },
+  two_factor_enabled_toast:  { pl: 'Włączono logowanie dwuetapowe.', en: 'Two-step login enabled.' },
+  two_factor_disabled_toast: { pl: 'Wyłączono logowanie dwuetapowe.', en: 'Two-step login disabled.' },
+  login_2fa_desc:     { pl: 'Wpisz kod weryfikacyjny wysłany na Twój e-mail.', en: 'Enter the verification code sent to your email.' },
 }
 
 export function t(key: keyof typeof dict, lang: Lang): string {
@@ -312,6 +320,7 @@ export const errorText: Dict = {
   BAD_CREDENTIALS: { pl: 'Błędna nazwa użytkownika lub hasło.', en: 'Invalid username or password.' },
   INVALID_TOKEN: { pl: 'Sesja wygasła. Zaloguj się ponownie.', en: 'Session expired. Please sign in again.' },
   INVALID_CODE: { pl: 'Kod jest nieprawidłowy lub wygasł.', en: 'The code is invalid or expired.' },
+  EMAIL_REQUIRED_FOR_2FA: { pl: 'Logowanie dwuetapowe wymaga adresu e-mail na koncie.', en: 'Two-step login requires an email address on the account.' },
   FORBIDDEN: { pl: 'Brak uprawnień.', en: 'Access denied.' },
   TYPE_REQUIRED: { pl: 'Dla typu ANY wybierz INBOUND/OUTBOUND.', en: 'For ANY type you must choose INBOUND/OUTBOUND.' },
   DOCK_CONFLICT: { pl: 'Konflikt czasowy docka.', en: 'Dock time conflict.' },

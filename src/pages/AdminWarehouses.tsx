@@ -55,7 +55,7 @@ function WarehouseModal({
   const labelCls = "block text-xs font-semibold text-(--text-muted) mb-1";
 
   return (
-    <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-(--z-modal) flex items-center justify-center p-4">
       <div className="bg-(--card-bg) rounded-2xl shadow-xl w-full max-w-md">
         <div className="bg-linear-to-br from-indigo-600 to-indigo-800 px-6 py-4 rounded-t-2xl flex justify-between items-center">
           <h2 className="text-lg font-bold text-white">

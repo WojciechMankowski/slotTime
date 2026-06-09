@@ -15,4 +15,14 @@
 
   --danger: #dc2626;
   --success: #16a34a;
+
+  /* z-index ladder (dół → góra stosu) */
+  --z-header: 100;          /* sticky pasek nagłówka */
+  --z-dropdown: 200;        /* dropdown języka w headerze (nad headerem) */
+  --z-drawer-backdrop: 300; /* DayDrawer tło */
+  --z-drawer: 310;          /* DayDrawer panel */
+  --z-menu-backdrop: 400;   /* nav Menu tło */
+  --z-menu: 410;            /* nav Menu panel */
+  --z-modal: 500;           /* modale (Overlay + AdminWarehouses) */
+  --z-toast: 600;           /* toasty — zawsze na wierzchu */
 }

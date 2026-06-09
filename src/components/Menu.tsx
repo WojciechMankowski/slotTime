@@ -60,7 +60,7 @@ const Menu = ({ lang, me }: { lang: Lang; me: Me }) => {
 
       {/* overlay */}
       <div
-        className={`fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-20000 transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-(--z-menu-backdrop) transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={closeMenu}
@@ -68,7 +68,7 @@ const Menu = ({ lang, me }: { lang: Lang; me: Me }) => {
 
       {/* sidebar */}
       <aside
-        className={`fixed top-0 w-[300px] h-screen bg-(--card-bg) shadow-[4px_0_25px_rgba(15,23,42,0.15)] z-20001 px-4 py-4 flex flex-col gap-0 overflow-y-auto transition-[left,opacity,visibility] duration-300 ease-in-out ${
+        className={`fixed top-0 w-[300px] h-screen bg-(--card-bg) shadow-[4px_0_25px_rgba(15,23,42,0.15)] z-(--z-menu) px-4 py-4 flex flex-col gap-0 overflow-y-auto transition-[left,opacity,visibility] duration-300 ease-in-out ${
           isOpen ? "left-0 opacity-100 visible" : "-left-[320px] opacity-0 invisible"
         }`}
       >

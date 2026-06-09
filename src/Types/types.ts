@@ -23,6 +23,7 @@ export interface Me {
   alias: string
   role: Role
   lang: 'pl' | 'en'
+  two_factor_enabled: boolean
   company: Company | null
   warehouse: Warehouse | null
 }

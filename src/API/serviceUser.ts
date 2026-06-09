@@ -49,3 +49,13 @@ export const resetPassword = async (email: string, code: string, new_password: s
   return res.data
 }
 
+export const loginVerify = async (pre_auth_token: string, code: string) => {
+  const res = await api.post('/api/login/verify', { pre_auth_token, code })
+  return res.data
+}
+
+export const patchMy2FA = async (enabled: boolean): Promise<Me> => {
+  const res = await api.patch<Me>('/api/me/2fa', { two_factor_enabled: enabled })
+  return res.data
+}
+

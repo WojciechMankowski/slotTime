@@ -65,13 +65,13 @@ export default function DayDrawer({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-slate-900/30 z-[9998] transition-opacity"
+        className="fixed inset-0 bg-slate-900/30 z-(--z-drawer-backdrop) transition-opacity"
         onClick={onClose}
       />
 
       {/* Panel */}
       <div
-        className="fixed top-0 right-0 h-full z-[9999] bg-white shadow-2xl
+        className="fixed top-0 right-0 h-full z-(--z-drawer) bg-white shadow-2xl
           w-full max-w-[480px] lg:max-w-[480px]
           transform transition-transform duration-300 ease-out translate-x-0
           flex flex-col"

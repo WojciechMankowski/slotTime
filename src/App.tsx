@@ -110,7 +110,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen bg-(--bg) text-(--text-main) font-sans text-sm">
       <div className="flex-1 pt-0">
-        <Header me={me} lang={lang} onLang={onLang} onLogout={onLogout} />
+        <Header me={me} lang={lang} onLang={onLang} onLogout={onLogout} onMeChange={setMe} />
 
         {/* container = max-width dla contentu (tabele, formularze itd.) */}
         <div className="max-w-1400px mx-auto px-5 pb-8">
