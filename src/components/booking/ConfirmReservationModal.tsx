@@ -40,10 +40,10 @@ export default function ConfirmReservationModal({
   onClose,
 }: ConfirmReservationModalProps) {
   return (
-    <Overlay onClose={onClose}>
+    <Overlay onClose={onClose} labelledBy="confirm-reservation-title">
       <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden max-h-[90vh] flex flex-col">
         <div className="bg-linear-to-br from-blue-600 to-blue-800 px-7 py-5 shrink-0">
-          <h3 className="text-xl font-bold text-white mb-0.5">
+          <h3 id="confirm-reservation-title" className="text-xl font-bold text-white mb-0.5">
             {t("confirm_reservation", lang)}
           </h3>
           <p className="text-blue-200 text-sm">

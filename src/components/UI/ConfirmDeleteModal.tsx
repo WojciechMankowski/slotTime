@@ -22,7 +22,7 @@ export default function ConfirmDeleteModal({
   onCancel,
 }: ConfirmDeleteModalProps) {
   return (
-    <Overlay onClose={onCancel}>
+    <Overlay onClose={onCancel} labelledBy="confirm-delete-title">
       <div className="bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden">
         {/* Header */}
         <div className="bg-linear-to-br from-red-600 to-red-700 px-7 py-5">
@@ -44,7 +44,7 @@ export default function ConfirmDeleteModal({
               <path d="M14 11v6" />
               <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
             </svg>
-            <h3 className="text-xl font-bold text-white mb-0">
+            <h3 id="confirm-delete-title" className="text-xl font-bold text-white mb-0">
               {t("delete_confirm_title", lang)}
             </h3>
           </div>
