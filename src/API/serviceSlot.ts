@@ -104,6 +104,8 @@ export interface CalendarDaySummary {
   booked: number;
   completed: number;
   cancelled: number;
+  inbound: number;
+  outbound: number;
 }
 
 export const getCalendarSummary = async (dateFrom: string, dateTo: string): Promise<CalendarDaySummary[]> => {

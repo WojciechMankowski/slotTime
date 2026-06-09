@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { t, Lang } from "../Helper/i18n";
 import useAdminCalendar, { CalendarMode } from "../hooks/useAdminCalendar";
@@ -8,6 +8,8 @@ import ErrorBanner from "../components/UI/ErrorBanner";
 import Spinner from "../components/UI/Spinner";
 import SlotPreviewModal from "../components/Admin/SlotPreviewModal";
 import DayDrawer from "../components/Admin/DayDrawer";
+import Select from "../components/UI/Select";
+import Checkbox from "../components/UI/Checkbox";
 import { TYPE_STYLE } from "../Helper/helper";
 import type { CalendarDaySummary } from "../API/serviceSlot";
 import type { Slot } from "../Types/SlotType";
@@ -24,6 +26,20 @@ const GRID_SPAN  = GRID_END - GRID_START; // 960 min
 function dtToMinutes(dt: string): number {
   const d = new Date(dt);
   return d.getHours() * 60 + d.getMinutes();
+}
+
+// ── Auto-refresh preference (localStorage) ──────────────────
+const REFRESH_KEY = "cal_refresh_min";
+const REFRESH_OPTIONS = [0, 5, 10, 15, 30, 60]; // 0 = wyłączone; 1 = testowo
+const REFRESH_DEFAULT = 10;
+
+function getRefreshMin(): number {
+  const v = Number(localStorage.getItem(REFRESH_KEY));
+  return REFRESH_OPTIONS.includes(v) ? v : REFRESH_DEFAULT;
+}
+
+function setRefreshMinStored(min: number) {
+  localStorage.setItem(REFRESH_KEY, String(min));
 }
 
 // ── Month Day Cell ──────────────────────────────────────────
@@ -78,6 +94,16 @@ function DayCell({ summary, dateStr, isToday, isOtherMonth, isSelected, onClick 
             {(summary?.cancelled ?? 0) + (summary?.completed ?? 0) > 0 && (
               <span className="flex items-center gap-0.5 text-[0.6rem] font-semibold text-gray-400">
                 <span className="w-2 h-2 rounded-full bg-gray-300 inline-block" />{(summary?.cancelled ?? 0) + (summary?.completed ?? 0)}</span>
+            )}
+            {(summary?.inbound ?? 0) > 0 && (
+              <span className="flex items-center gap-0.5 text-[0.6rem] font-semibold text-blue-700">
+                <span className="w-2 h-2 rounded-full bg-blue-400 inline-block" />{summary?.inbound}
+              </span>
+            )}
+            {(summary?.outbound ?? 0) > 0 && (
+              <span className="flex items-center gap-0.5 text-[0.6rem] font-semibold text-purple-700">
+                <span className="w-2 h-2 rounded-full bg-purple-400 inline-block" />{summary?.outbound}
+              </span>
             )}
           </div>
 
@@ -239,11 +265,22 @@ export default function AdminCalendar({ lang }: Props) {
   const week = useAdminCalendarWeek();
   const dayDrawer = useDayDrawer();
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
+  const [weekConfirmedOnly, setWeekConfirmedOnly] = useState(false);
+  const [refreshMin, setRefreshMin] = useState<number>(getRefreshMin());
 
   useEffect(() => {
     cal.load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Auto-odświeżanie aktywnego widoku — zawsze wywołuje najnowszy loader
+  const refreshFnRef = useRef<() => void>(() => {});
+  refreshFnRef.current = () => { cal.mode === "month" ? cal.load() : week.load(); };
+  useEffect(() => {
+    if (refreshMin <= 0) return;
+    const id = setInterval(() => refreshFnRef.current(), refreshMin * 60_000);
+    return () => clearInterval(id);
+  }, [refreshMin]);
 
   // Open drawer from URL ?date= on mount
   useEffect(() => {
@@ -321,18 +358,32 @@ export default function AdminCalendar({ lang }: Props) {
           <h1 className="text-3xl font-bold text-gray-900 mb-1">{t("calendar", lang)}</h1>
           <p className="text-gray-500 text-sm">{navLabel}</p>
         </div>
-        <div className="flex gap-1 bg-gray-100 p-1 rounded-xl">
-          {(["month", "week"] as CalendarMode[]).map(m => (
-            <button
-              key={m}
-              onClick={() => switchMode(m)}
-              className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${
-                cal.mode === m ? "bg-white text-blue-600 shadow-sm" : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {m === "month" ? t("month_view", lang) : t("week_view", lang)}
-            </button>
-          ))}
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-gray-500 whitespace-nowrap">{t("cal_autorefresh", lang)}</span>
+            <Select
+              id="cal-refresh"
+              defaultValue={String(refreshMin)}
+              options={REFRESH_OPTIONS.map(n => ({
+                value: String(n),
+                label: n === 0 ? t("cal_autorefresh_off", lang) : `${n} min`,
+              }))}
+              onChange={(v) => { const n = Number(v); setRefreshMin(n); setRefreshMinStored(n); }}
+            />
+          </div>
+          <div className="flex gap-1 bg-gray-100 p-1 rounded-xl">
+            {(["month", "week"] as CalendarMode[]).map(m => (
+              <button
+                key={m}
+                onClick={() => switchMode(m)}
+                className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${
+                  cal.mode === m ? "bg-white text-blue-600 shadow-sm" : "text-gray-500 hover:text-gray-700"
+                }`}
+              >
+                {m === "month" ? t("month_view", lang) : t("week_view", lang)}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -385,13 +436,27 @@ export default function AdminCalendar({ lang }: Props) {
               </div>
             </>
           ) : (
-            <WeekGrid
-              slots={week.slots}
-              weekRef={week.weekRef}
-              lang={lang}
-              onDayClick={handleDayClick}
-              onSlotClick={setSelectedSlot}
-            />
+            <>
+              <div className="mb-4 flex justify-end">
+                <Checkbox
+                  id="week-confirmed-only"
+                  checked={weekConfirmedOnly}
+                  onChange={setWeekConfirmedOnly}
+                  label={t("cal_week_confirmed_only", lang)}
+                />
+              </div>
+              <WeekGrid
+                slots={weekConfirmedOnly
+                  ? week.slots.filter(s =>
+                      (s.status === "CONFIRMED" || s.status === "COMPLETED") &&
+                      (s.slot_type === "INBOUND" || s.slot_type === "OUTBOUND"))
+                  : week.slots}
+                weekRef={week.weekRef}
+                lang={lang}
+                onDayClick={handleDayClick}
+                onSlotClick={setSelectedSlot}
+              />
+            </>
           )}
         </div>
       )}
@@ -426,6 +491,8 @@ export default function AdminCalendar({ lang }: Props) {
           <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block" />{t("cal_legend_available", lang)}</span>
           <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block" />{t("cal_legend_booked", lang)}</span>
           <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-gray-300 inline-block" />{t("cal_legend_done", lang)}</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-400 inline-block" />{t("cal_legend_inbound", lang)}</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-purple-400 inline-block" />{t("cal_legend_outbound", lang)}</span>
           <span className="ml-2 flex items-center gap-1.5 text-gray-400">{t("cal_legend_bar", lang)}</span>
         </div>
       )}

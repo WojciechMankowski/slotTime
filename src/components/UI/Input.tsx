@@ -1,5 +1,6 @@
 import { InputProps } from "../../Types/Props";
 import React from "react";
+import { FIELD_CLASS } from "./controlStyles";
 
 const Input = ({
   type,
@@ -29,7 +30,7 @@ const Input = ({
         type={type}
         value={value}
         onChange={handleChange} // Tutaj przekazujemy naszą funkcję pośredniczącą
-        className={`w-full px-3 py-2 rounded-lg border border-(--border) text-sm bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-1 focus:ring-blue-600/15 disabled:opacity-70 disabled:bg-gray-100 ${className || ''}`}
+        className={`${FIELD_CLASS} ${className || ''}`}
         placeholder={placeholder}
         disabled={disabled}
         name={name}

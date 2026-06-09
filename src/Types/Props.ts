@@ -23,6 +23,7 @@ export interface ButtonProps {
   name?: string;
   id?: string | number;
   text: React.ReactNode;
+  intent?: "primary" | "outline"; // gdy pominięty — wykrywany z className (kompatybilność)
 }
 
 export interface SelectProps {

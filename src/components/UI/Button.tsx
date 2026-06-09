@@ -1,5 +1,6 @@
 import { ButtonProps } from "../../Types/Props";
 import React from "react";
+import { BUTTON_BASE, BUTTON_INTENT, ButtonIntent } from "./controlStyles";
 
 const Button = ({
   type,
@@ -7,13 +8,26 @@ const Button = ({
   className,
   disabled,
   name,
-  id, text
+  id, text,
+  intent,
 }: ButtonProps) => {
+  // Intencja z propa; gdy pominięty — shim kompatybilności czyta ją z className.
+  const resolvedIntent: ButtonIntent =
+    intent ??
+    (className?.includes("primary")
+      ? "primary"
+      : "outline");
+
+  // Pozostałe klasy = className bez słów-aliasów intencji (gdy intent wynikał z className).
+  const restClassName = intent
+    ? className ?? ""
+    : (className ?? "").replace(/\b(primary|outline)\b/g, "").trim();
+
   return (
     <button
       type={type}
       onClick={onClick}
-      className={`border-none rounded-full px-4 py-2 text-sm font-medium cursor-pointer transition-all duration-200 shadow-md flex items-center justify-center gap-1 hover:-translate-y-px active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 ${className?.includes('primary') ? 'bg-linear-to-r from-blue-600 to-blue-700 text-white shadow-blue-600/30' : className?.includes('outline') ? 'bg-white border border-(--border) text-(--text-main) hover:border-gray-500' : ''} ${(className?.includes('primary') || className?.includes('outline')) ? className.replace(/\b(primary|outline)\b/g, '').trim() : className ?? ''}`}
+      className={`${BUTTON_BASE} ${BUTTON_INTENT[resolvedIntent]} ${restClassName}`}
       disabled={disabled}
       name={name}
       id={id?.toString() ?? name}

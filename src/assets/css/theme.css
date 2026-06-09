@@ -16,6 +16,29 @@
   --danger: #dc2626;
   --success: #16a34a;
 
+  /* radius */
+  --radius-sm: 0.375rem;
+  --radius-control: 0.5rem;   /* wspólny radius kontrolek (pola + przyciski) */
+  --radius-lg: 0.75rem;
+
+  /* spacing kontrolek */
+  --control-px: 0.75rem;      /* poziomy padding */
+  --control-py: 0.5rem;       /* pionowy padding */
+  --control-gap: 0.25rem;     /* label↔pole, ikona↔tekst */
+
+  /* motion */
+  --dur-fast: 150ms;
+  --dur-base: 200ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* intencje (bazują na istniejących kolorach) */
+  --intent-primary-from: #2563eb;  /* = accent */
+  --intent-primary-to:   #1d4ed8;  /* = accent-dark — zachowuje obecny gradient */
+  --intent-primary-fg:   #ffffff;
+  --intent-neutral-bg:     #ffffff;
+  --intent-neutral-border: var(--border);
+  --intent-neutral-fg:     var(--text-main);
+
   /* z-index ladder (dół → góra stosu) */
   --z-header: 100;          /* sticky pasek nagłówka */
   --z-dropdown: 200;        /* dropdown języka w headerze (nad headerem) */
