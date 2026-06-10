@@ -73,6 +73,15 @@ export default function Login({
     }
   }
 
+  // Powrót do kroku 1 — czyści stan 2FA.
+  const backToLogin = () => {
+    if (loading) return
+    setErr(null)
+    setCode('')
+    setPreAuthToken('')
+    setStep(1)
+  }
+
   // Ponowne wysłanie kodu — backend przy każdym /login generuje i wysyła nowy kod.
   const resendCode = async () => {
     if (loading) return
@@ -227,6 +236,15 @@ export default function Login({
                   className="text-xs text-blue-600 hover:text-blue-800 text-center disabled:opacity-60"
                 >
                   {t('resend_code', lang)}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={backToLogin}
+                  disabled={loading}
+                  className="text-xs text-gray-500 hover:text-gray-700 text-center disabled:opacity-60"
+                >
+                  {t('back_to_login', lang)}
                 </button>
               </form>
             )}
