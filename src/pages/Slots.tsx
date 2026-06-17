@@ -9,7 +9,7 @@ export default function Slots({ lang, me }: { lang: Lang; me: Me }) {
   const initialDate = params.get("date") ?? undefined;
 
   return (
-    <div className="p-4 max-w-full mx-auto text-gray-800">
+    <div className="text-gray-800">
       <AdminSlot lang={lang} me={me} initialDate={initialDate} />
     </div>
   );

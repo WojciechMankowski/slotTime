@@ -101,7 +101,7 @@ export default function AdminSlot({ lang, me, initialDate }: { lang: Lang; me: M
   };
 
   return (
-    <div className="p-4 max-w-5xl mx-auto">
+    <div className="p-4 max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-6 flex items-start justify-between gap-4 flex-wrap">
         <div>
