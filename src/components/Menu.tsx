@@ -167,6 +167,14 @@ const Menu = ({ lang, me }: { lang: Lang; me: Me }) => {
               </NavLink>
 
               <NavLink
+                to="/doki"
+                onClick={closeMenu}
+                className={({ isActive }) => `${linkBase} ${isActive ? linkActive : ""}`}
+              >
+                {t("doki_board", lang)}
+              </NavLink>
+
+              <NavLink
                 to="/admin/archive"
                 onClick={closeMenu}
                 className={({ isActive }) => `${linkBase} ${isActive ? linkActive : ""}`}

@@ -19,6 +19,7 @@ import TestPage from './pages/TestPage'
 import ClientBooking from './pages/ClientBooking'
 import AdminArchive from './pages/AdminArchive'
 import AdminCalendar from './pages/AdminCalendar'
+import DockBoard from './pages/DockBoard'
 import AdminWarehouses from './pages/AdminWarehouses'
 import AdminReports from './pages/AdminReports'
 import Header from './components/Header'
@@ -153,6 +154,10 @@ export default function App() {
             <Route
               path="/calendar"
               element={me.role !== 'client' ? <AdminCalendar lang={lang} /> : <Navigate to="/" replace />}
+            />
+            <Route
+              path="/doki"
+              element={me.role !== 'client' ? <DockBoard lang={lang} me={me} /> : <Navigate to="/" replace />}
             />
 
             <Route

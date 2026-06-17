@@ -7,9 +7,10 @@ import { calculateEndDate } from "../Helper/calculateEndDate";
 export const getSlotsAdmin = async (
   dateFrom: string,
   dateTo: string,
+  status?: string,
 ): Promise<Slot[]> => {
   const res = await api.get<Slot[]>("/api/slots", {
-    params: { date_from: dateFrom, date_to: dateTo },
+    params: { date_from: dateFrom, date_to: dateTo, ...(status ? { status } : {}) },
   });
   return res.data;
 };
