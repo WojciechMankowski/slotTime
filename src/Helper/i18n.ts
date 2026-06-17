@@ -22,6 +22,7 @@ export const dict: Dict = {
   doki_filter_busy: { pl: 'Tylko zajęte', en: 'Busy only' },
   doki_filter_empty: { pl: 'Tylko puste', en: 'Empty only' },
   doki_no_slots: { pl: 'Brak zleceń', en: 'No orders' },
+  doki_client: { pl: 'Klient', en: 'Client' },
   doki_reference: { pl: 'Referencja', en: 'Reference' },
   doki_reg_truck: { pl: 'Rej. auta', en: 'Truck reg.' },
   doki_reg_trailer: { pl: 'Rej. naczepy', en: 'Trailer reg.' },

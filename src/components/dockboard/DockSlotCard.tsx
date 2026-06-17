@@ -42,6 +42,9 @@ export default function DockSlotCard({ slot, lang }: Props) {
       </div>
 
       <dl className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-0.5 text-[0.72rem]">
+        <dt className="text-gray-400 font-medium">{t("doki_client", lang)}</dt>
+        <dd className="text-gray-800 font-semibold text-right break-all">{slot.reserved_by_company_name || slot.reserved_by_company_alias || "—"}</dd>
+
         <dt className="text-gray-400 font-medium">{t("doki_reference", lang)}</dt>
         <dd className="text-gray-800 font-semibold text-right break-all">{n?.referencja || "—"}</dd>
 
