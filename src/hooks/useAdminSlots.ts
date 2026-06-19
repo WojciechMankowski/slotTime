@@ -71,7 +71,7 @@ export default function useAdminSlots(lang: Lang, initialDate?: string) {
         slots = slots.filter((slot) => slot.status !== "COMPLETED" && slot.status !== "CANCELLED");
       }
       setSlotsAdmin(slots);
-      setDockAdmin(docks);
+      setDockAdmin([...docks].sort((a, b) => a.alias.localeCompare(b.alias)));
     } catch (error) {
       setErrorLoad(getApiErrorMessage(error, lang));
     }
