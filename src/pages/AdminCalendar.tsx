@@ -20,7 +20,7 @@ function getMonthNames(lang: Lang) { return t("cal_months", lang).split("|"); }
 function getDayNames(lang: Lang)   { return t("cal_days",   lang).split("|"); }
 
 const GRID_START = 6 * 60;  // 06:00
-const GRID_END   = 22 * 60; // 22:00
+const GRID_END   = 19 * 60; // 19:00
 const GRID_SPAN  = GRID_END - GRID_START; // 960 min
 
 function dtToMinutes(dt: string): number {
@@ -155,17 +155,16 @@ function WeekGrid({ slots, weekRef, lang, onDayClick, onSlotClick }: {
     if (byDay[day]) byDay[day].push(s);
   });
 
-  // Hour labels 06–22
+  // Hour labels 06–19
   const hours: number[] = [];
-  for (let h = 6; h <= 22; h++) hours.push(h);
+  for (let h = 6; h <= 19; h++) hours.push(h);
 
   const CELL_H = 84; // px per hour row
   const MIN_SLOT_H = 40; // px – minimalna wysokość bloku slotu
   const GRID_H = (GRID_SPAN / 60) * CELL_H; // total grid height px
 
   return (
-    <div className="overflow-x-auto">
-      <div className="min-w-[700px]">
+    <div>
         {/* Column headers */}
         <div className="flex border-b border-gray-200 mb-0">
           <div className="w-14 shrink-0" />
@@ -252,7 +251,6 @@ function WeekGrid({ slots, weekRef, lang, onDayClick, onSlotClick }: {
             </div>
           ))}
         </div>
-      </div>
     </div>
   );
 }
@@ -351,7 +349,7 @@ export default function AdminCalendar({ lang }: Props) {
   const loadErr  = cal.mode === "month" ? cal.loadErr : week.loadErr;
 
   return (
-    <div className="p-4 max-w-5xl mx-auto">
+    <div className="p-4">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between flex-wrap gap-4">
         <div>
