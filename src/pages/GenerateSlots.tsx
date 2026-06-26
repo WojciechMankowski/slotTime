@@ -75,6 +75,7 @@ export default function GenerateSlots({ lang }: { lang: Lang }) {
   const [interval, setInterval] = useState(30)
   const [slotType, setSlotType] = useState<SlotType>('ANY')
   const [parallelSlots, setParallelSlots] = useState(1)
+  const [skipWeekends, setSkipWeekends] = useState(false)
 
   const [report, setReport] = useState<ReportRow[]>([])
   const [genError, setGenError] = useState<string | null>(null)
@@ -107,6 +108,7 @@ export default function GenerateSlots({ lang }: { lang: Lang }) {
         interval_minutes: interval,
         slot_type: slotType,
         parallel_slots: parallelSlots,
+        skip_weekends: skipWeekends,
       })
       setReport(res.data.days)
     } catch (e: any) {
@@ -245,6 +247,16 @@ export default function GenerateSlots({ lang }: { lang: Lang }) {
                 </select>
               </div>
             </div>
+
+            <label className="flex items-center gap-3 mb-6 px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 cursor-pointer select-none hover:bg-gray-100 transition-colors">
+              <input
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500"
+                checked={skipWeekends}
+                onChange={e => setSkipWeekends(e.target.checked)}
+              />
+              <span className="text-sm font-medium text-gray-700">{t('skip_weekends', lang)}</span>
+            </label>
 
             <button
               className="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold rounded-xl px-6 py-3.5 text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-60"

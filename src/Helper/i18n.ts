@@ -127,6 +127,7 @@ export const dict: Dict = {
   template_optional: { pl: 'Szablon (opcjonalnie)', en: 'Template (optional)' },
   none: { pl: '— brak —', en: '— none —' },
   parallel_slots: { pl: 'Równoległe sloty', en: 'Parallel slots' },
+  skip_weekends: { pl: 'Pomijaj weekendy (soboty i niedziele)', en: 'Skip weekends (Saturdays and Sundays)' },
   daily_limits: { pl: 'Limity dzienne (Inbound / Outbound)', en: 'Daily limits (Inbound / Outbound)' },
   daily_limits_desc: { pl: '(tu w kolejnym kroku podepniemy DayCapacity – jak w starym narzędziu)', en: '(here we will connect DayCapacity in the next step - like in the old tool)' },
   report_latest: { pl: 'Raport (ostatnia operacja)', en: 'Report (latest operation)' },

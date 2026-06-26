@@ -33,6 +33,7 @@ export const createSlot = async (
   slotType: SlotType,
   intervalMinutes: number,
   parallelSlots: number = 1,
+  skipWeekends: boolean = false,
 ): Promise<SlotGenerateResponse> => {
   const dateTo = calculateEndDate(dateFrom, timeFrom, timeTo);
 
@@ -44,6 +45,7 @@ export const createSlot = async (
     interval_minutes: intervalMinutes,
     slot_type: slotType,
     parallel_slots: parallelSlots,
+    skip_weekends: skipWeekends,
     template_id: null,
   });
   return res.data;
